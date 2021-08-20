@@ -1,10 +1,11 @@
-## TRON CrowdFunding
+## Brutus Token
 
-[Online Demo](https://stevenstc.github.io/USDT-CrowdFunding/?ref=TB7RTxBPY4eMvKjceXj8SWjVnZCrWr4XvF)
+[Online](https://brutustoken.com)
+[Online Alterno](https://brutustoken.tk)
 
-Es una Dapp construida en TRON. es un ejemplo de como se podria comprar y vender articulos por internet sin necesidad de tener una tienda online
-Maneja repositorios de [TronWeb](https://github.com/tronprotocol/tron-web)
-y está integrada con [TronLink](https://github.com/TronWatch/TronLink).
+Dapp construida en la red TRON para acercar el trading automatizado a todos quellos que quieren disfrutar de los beneficios sin enferntarse con el mercado a un nivel tan tecnico. 
++ Maneja repositorios de [TronWeb](https://github.com/tronprotocol/tron-web)
++ Integrada con [TronLink](https://github.com/TronWatch/TronLink).
 
 **NOTA: Tienes que tener instalado TronLink para poder interactuar con la pagina, recomiendo instalar  [TronLink desde Chrome Webstore](https://chrome.google.com/webstore/detail/ibnejdfjmmkpcnlpebklmnkoeoihofec/).**
 
@@ -25,4 +26,6 @@ Para hacer pruebas en **localhost:3000**
 Para colocarlo en un servidor web, recuerda cambiar el **homepage** en **package.json** 
 
 `npm run build`
+
+la aplicación estara lista en la carpeta **docs** lista para ser colocada en cualquier servidor web
 
