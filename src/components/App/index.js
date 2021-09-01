@@ -105,71 +105,79 @@ class App extends Component {
   render() {
 
 
-    var getString = false;
+    var getString = "";
     var loc = document.location.href;
     //console.log(loc);
     if(loc.indexOf('?')>0){
               
       getString = loc.split('?')[1];
       getString = getString.split('#')[0];
+
     }
 
-    if(getString === "staking"){
-      if (!this.state.tronWeb.installed) return (
-        <>
-          <StakingBaner/>
-          <div className="container">
-            <TronLinkGuide  url={"/?"+getString}/>
-          </div>
-        </>
+    switch (getString) {
+      case "staking": 
+      case "brst":
+      case "BRST": 
+        if (!this.state.tronWeb.installed) return (
+          <>
+            <StakingBaner/>
+            <div className="container">
+              <TronLinkGuide  url={"/?"+getString}/>
+            </div>
+          </>
+          );
+    
+        if (!this.state.tronWeb.loggedIn) return (
+          <>
+            <StakingBaner/>
+            <div className="container">
+              <TronLinkGuide installed url={"/?"+getString}/>
+            </div>
+          </>
+          );
+    
+        return (
+          <>
+            <StakingBaner getString={getString}/>
+            <Staking />
+          </>
         );
-  
-      if (!this.state.tronWeb.loggedIn) return (
-        <>
-          <StakingBaner/>
-          <div className="container">
-            <TronLinkGuide installed url={"/?"+getString}/>
-          </div>
-        </>
+      
+
+    
+      default:  
+        if (!this.state.tronWeb.installed) return (
+          <>
+            <HomeBaner/>
+            <div className="container">
+              <TronLinkGuide />
+            </div>
+          </>
+          );
+    
+        if (!this.state.tronWeb.loggedIn) return (
+          <>
+            <HomeBaner/>
+            <div className="container">
+              <TronLinkGuide installed />
+            </div>
+          </>
+          );
+    
+        return (
+          <>
+            <HomeBaner/>
+            <Home />
+          </>
         );
-  
-      return (
-        <>
-          <StakingBaner getString={getString}/>
-          <Staking />
-        </>
-      );
-    }else{
-      if (!this.state.tronWeb.installed) return (
-        <>
-          <HomeBaner/>
-          <div className="container">
-            <TronLinkGuide />
-          </div>
-        </>
-        );
-  
-      if (!this.state.tronWeb.loggedIn) return (
-        <>
-          <HomeBaner/>
-          <div className="container">
-            <TronLinkGuide installed />
-          </div>
-        </>
-        );
-  
-      return (
-        <>
-          <HomeBaner/>
-          <Home />
-        </>
-      );
-  
+    
+        
       
     }
 
-    
 
+    
   }
 
   

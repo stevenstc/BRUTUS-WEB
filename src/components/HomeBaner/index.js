@@ -44,7 +44,7 @@ export default class HomeBaner extends Component {
                       </div>
                       <div className="col-12 col-md-6">
                           <div className="welcome-img">
-                              <img src="assets/img/Brutus.png" alt="Brutus Token" />
+                              <img src="assets/img/Brutus.svg" alt="Brutus Token" />
                           </div>
                       </div>
                   </div>

@@ -58,6 +58,39 @@ css list:
 =====================*/
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,800');
+.parpadea {
+
+
+  font-weight: 800 !important;
+  
+  animation-name: parpadeo;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name:parpadeo;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-moz-keyframes parpadeo{  
+  0% { color: red; }
+  50% { color: white; }
+  100% { color: red; }
+}
+
+@-webkit-keyframes parpadeo {  
+  0% { color: red ; }
+  50% { color: white ; }
+  100% { color: red ; }
+}
+
+@keyframes parpadeo {  
+  0% { color: red ; }
+  50% { color: white ; }
+  100% { color: red ; }
+}
 
 body{
 	background: #062489;
