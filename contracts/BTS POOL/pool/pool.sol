@@ -25,7 +25,7 @@ interface TRC20_Interface {
     function transferOwnership(address newOwner) external;
 }
 
-contract SimplePool is Ownable{
+contract PoolBRST is Ownable{
   using SafeMath for uint;
 
   TRC20_Interface BRTS_Contract;
@@ -44,8 +44,8 @@ contract SimplePool is Ownable{
 
   uint public TRON_WALLET_BALANCE = 12000 *10**6;
 
-  uint public porcentaje_equipo = 20;
-  uint public porcentaje_usuarios = 80;
+  uint public porcentaje_equipo = 3;
+  uint public porcentaje_usuarios = 97;
 
   uint public dias_de_pago = 7;
   uint public unidades_tiempo = 86400;
@@ -84,6 +84,24 @@ contract SimplePool is Ownable{
   function TIEMPO() public view returns (uint){
 
     return dias_de_pago.mul(unidades_tiempo);
+
+  }
+
+  function setPorcentajeUsuario(uint _porcent) public onlyOwner returns (bool, uint user, uint platafom ){
+
+    porcentaje_equipo = 100-_porcent;
+    porcentaje_usuarios = _porcent;
+
+    return (true , porcentaje_usuarios, porcentaje_equipo );
+
+  }
+
+  function setPorcentajes(uint _porcentUser, uint _porcentTeam) public onlyOwner returns (bool, uint user, uint platafom ){
+
+    porcentaje_equipo = _porcentTeam;
+    porcentaje_usuarios = _porcentUser;
+
+    return (true , porcentaje_usuarios, porcentaje_equipo );
 
   }
 
