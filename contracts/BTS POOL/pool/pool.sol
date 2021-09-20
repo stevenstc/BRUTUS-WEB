@@ -53,6 +53,8 @@ contract PoolBRST is Ownable{
   address public NoValido = address(0);
 
   mapping (address => Solicitud) public solicitudes;
+  mapping (uint => address) public solicitudesEnProgreso;
+  uint index = 0;
 
   constructor(address _tokenTRC20) {
     BRTS_Contract = TRC20_Interface(_tokenTRC20);
@@ -163,6 +165,9 @@ contract PoolBRST is Ownable{
     TRON_WALLET_BALANCE -= pago;
     TRON_SOLICITADO += pago;
 
+    solicitudesEnProgreso[index] = msg.sender;
+    index++;
+
     return solicitud.cantidad;
 
   }
@@ -179,8 +184,8 @@ contract PoolBRST is Ownable{
     payable(msg.sender).transfer(pago);
     TRON_SOLICITADO -= pago;
 
-    solicitud.cantidad = 0;
-    solicitud.tiempo = 0;
+    delete solicitud.cantidad;
+    delete solicitud.tiempo;
 
     return pago;
 
@@ -316,8 +321,12 @@ contract PoolBRST is Ownable{
 
   }
 
-    fallback() external payable {}
+    fallback() external payable {
+      staking();
+    }
 
-    receive() external payable {}
+    receive() external payable {
+      staking();
+    }
 
 }
