@@ -42,7 +42,7 @@ contract PoolBRST is Ownable{
   uint public TRON_GANANCIAS = 0;
   uint public TRON_SOLICITADO = 0;
 
-  uint public TRON_WALLET_BALANCE = 12000 *10**6;
+  uint public TRON_WALLET_BALANCE = 13000 *10**6;
 
   uint public porcentaje_equipo = 3;
   uint public porcentaje_usuarios = 97;

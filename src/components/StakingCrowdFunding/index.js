@@ -19,15 +19,23 @@ export default class Trading extends Component {
       valueUSDT: "",
       value: "",
       cantidad: 0,
-      tiempo: 0
+      tiempo: 0,
+      enBrutus: 0,
+      tokensEmitidos: 0,
+      enPool: 0,
 
     };
 
     this.compra = this.compra.bind(this);
     this.venta = this.venta.bind(this);
     this.estado = this.estado.bind(this);
+
     this.handleChangeBRUT = this.handleChangeBRUT.bind(this);
     this.handleChangeUSDT = this.handleChangeUSDT.bind(this);
+
+    this.llenarBRUT = this.llenarBRUT.bind(this);
+    this.llenarUSDT = this.llenarUSDT.bind(this);
+
     this.consultarPrecio = this.consultarPrecio.bind(this);
   }
 
@@ -37,6 +45,16 @@ export default class Trading extends Component {
 
   handleChangeUSDT(event) {
     this.setState({valueUSDT: event.target.value});
+  }
+
+  llenarBRUT(){
+    document.getElementById('amountBRUT').value = this.state.balanceBRUT;
+    this.setState({valueBRUT: this.state.balanceBRUT});
+  }
+
+  llenarUSDT(){
+    document.getElementById('amountUSDT').value = this.state.balanceUSDT;
+    this.setState({valueUSDT: this.state.balanceUSDT});
   }
 
   async componentDidMount() {
@@ -110,6 +128,11 @@ export default class Trading extends Component {
     deposito.cantidad = parseInt(deposito.cantidad._hex)/10**6;
     deposito.tiempo = parseInt(deposito.tiempo._hex)*1000;
 
+    var enBrutus = await Utils.contract.TRON_TOTAL_BALANCE().call();
+    var tokensEmitidos = await contractBRUT.totalSupply().call();
+    var enPool = await Utils.contract.TRON_PAY_BALANCE().call();
+
+    console.log(tokensEmitidos);
     this.setState({
       depositoUSDT: aprovadoUSDT,
       depositoBRUT: aprovadoBRUT,
@@ -118,7 +141,10 @@ export default class Trading extends Component {
       wallet: accountAddress,
       precioBRUT: precioBRUT,
       cantidad: deposito.cantidad,
-      tiempo: deposito.tiempo
+      tiempo: deposito.tiempo,
+      enBrutus: parseInt(enBrutus._hex)/10**6,
+      tokensEmitidos: parseInt(tokensEmitidos._hex)/10**6,
+      enPool: parseInt(enPool._hex)/10**6,
     });
 
   }
@@ -290,6 +316,28 @@ export default class Trading extends Component {
 
 
       <div className="container text-center">
+        
+        <div className="card">
+        <div className="row">
+          <div className="col-lg-4">
+            
+              <h2>TRX en SR</h2>
+              <p>{this.state.enBrutus} TRX</p>
+          </div>
+
+          <div className="col-lg-4">
+              <h2>BRST emitidos</h2>
+              <p>{this.state.tokensEmitidos} BRST</p>
+          </div>
+
+          <div className="col-lg-4">
+              <h2>TRX en pool</h2>
+              <p>{this.state.enPool} TRX</p>
+          </div>
+
+        </div>
+
+        </div>
         <div className="row">
           <div className="col-lg-6 p-3">
             <div className="card">
@@ -299,12 +347,12 @@ export default class Trading extends Component {
                 <strong>Staking</strong><br />
               </h6>
 
-              <p>
+              <p onClick={() => this.llenarUSDT()} style={{"cursor" : "pointer"}}>
                 Tron: <strong>{this.state.balanceUSDT}</strong> (TRX)
               </p>
 
               <div className="form-group">
-                <input type="number" className="form-control mb-20 text-center" id="amountUSDT" value={this.state.valueUSDT} onChange={this.handleChangeUSDT} placeholder={minCompra}></input>
+                <input type="number" className="form-control mb-20 text-center" id="amountUSDT"  onChange={this.handleChangeUSDT} placeholder={minCompra}></input>
                 <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
 
                 <a href="#convert" className="gradient-btn v2" onClick={() => this.compra()}>{this.state.depositoUSDT} {} {(this.state.valueUSDT/this.state.precioBRUT).toFixed(6)} BRST</a>
@@ -325,12 +373,12 @@ export default class Trading extends Component {
                 <strong>Solicitar Retiro</strong><br />
               </h6>
 
-              <p>
+              <p onClick={() => this.llenarBRUT()} style={{"cursor" : "pointer"}}>
                 Brutus Staking: <strong>{this.state.balanceBRUT}</strong> (BRST)
               </p>
 
               <div className="form-group">
-                <input type="number" className="form-control mb-20 text-center" id="amountBRUT" value={this.state.valueBRUT} onChange={this.handleChangeBRUT} placeholder={minventa}></input>
+                <input type="number" className="form-control mb-20 text-center" id="amountBRUT"  onChange={this.handleChangeBRUT} placeholder={minventa}></input>
                 <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
 
                 <a href="#convert" className="gradient-btn v2" onClick={() => this.venta()}>{this.state.depositoBRUT} {(this.state.precioBRUT*this.state.valueBRUT).toFixed(6)} TRX</a>

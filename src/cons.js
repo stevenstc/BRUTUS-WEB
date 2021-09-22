@@ -9,9 +9,9 @@ const USDT = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t";// contract for token USDT
 
 const BRUT = "TMnV9TeTFDUKmZR3ZQsMfd362hofvcFnqi";// contract for token trc20
 
-const SC2 = "TCxL1YB9Xca1ddYmWCu3wodjqtoyNNQxqL";// direccion del contrato N°2 POOL Staking
+const SC2 = "TSZ679Wh1L8sG7VYcjfAEMLmWu7vV1aoTM";// direccion del contrato N°2 POOL Staking
 
-const BRST = "TF8YgHqnJdWzCbUyouje3RYrdDKJYpGfB3";// contract for token trc20 BRST
+const BRST = "TVF78ZDkPL2eJgUqs7pDusTgyMtw9WA4tq";//TF8YgHqnJdWzCbUyouje3RYrdDKJYpGfB3 contract for token trc20 BRST
 
 const PRICE = "https://brutusprecio.herokuapp.com/api/v1/precio/BRUT"; //API de precio
 
