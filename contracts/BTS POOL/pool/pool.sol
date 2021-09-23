@@ -321,12 +321,8 @@ contract PoolBRST is Ownable{
 
   }
 
-    fallback() external payable {
-      staking();
-    }
+  fallback() external payable {}
 
-    receive() external payable {
-      staking();
-    }
+  receive() external payable {}
 
 }

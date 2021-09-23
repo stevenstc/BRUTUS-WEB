@@ -132,7 +132,7 @@ export default class Trading extends Component {
     var tokensEmitidos = await contractBRUT.totalSupply().call();
     var enPool = await Utils.contract.TRON_PAY_BALANCE().call();
 
-    console.log(tokensEmitidos);
+    //console.log(tokensEmitidos);
     this.setState({
       depositoUSDT: aprovadoUSDT,
       depositoBRUT: aprovadoBRUT,
@@ -198,6 +198,7 @@ export default class Trading extends Component {
         }
     }
 
+    this.llenarUSDT();
 
   };
 
@@ -262,6 +263,7 @@ export default class Trading extends Component {
 
     }
 
+    this.llenarBRUT();
 
   };
 
@@ -339,20 +341,22 @@ export default class Trading extends Component {
 
         </div>
         <div className="row">
-          <div className="col-lg-6 p-3">
-            <div className="card">
+          <div className="col-lg-6 ">
+            <div className="card pt-4">
             
               
-              <h6 >
+              <h5 >
                 <strong>Staking</strong><br />
-              </h6>
+              </h5>
+
+              <hr color="white"/>
 
               <p onClick={() => this.llenarUSDT()} style={{"cursor" : "pointer"}}>
                 Tron: <strong>{this.state.balanceUSDT}</strong> (TRX)
               </p>
 
               <div className="form-group">
-                <input type="number" className="form-control mb-20 text-center" id="amountUSDT"  onChange={this.handleChangeUSDT} placeholder={minCompra}></input>
+                <input type="number" className="form-control mb-20 text-center" id="amountUSDT"  onChange={this.handleChangeUSDT} placeholder={minCompra} min={this.state.minCompra} max={this.state.balanceUSDT}></input>
                 <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
 
                 <a href="#convert" className="gradient-btn v2" onClick={() => this.compra()}>{this.state.depositoUSDT} {} {(this.state.valueUSDT/this.state.precioBRUT).toFixed(6)} BRST</a>
@@ -365,20 +369,22 @@ export default class Trading extends Component {
           
 
           
-          <div className="col-lg-6 p-3">
-            <div className="card">
+          <div className="col-lg-6">
+            <div className="card pt-4">
             
               
-              <h6 >
+              <h5 >
                 <strong>Solicitar Retiro</strong><br />
-              </h6>
+              </h5>
+
+              <hr color="white"/>
 
               <p onClick={() => this.llenarBRUT()} style={{"cursor" : "pointer"}}>
                 Brutus Staking: <strong>{this.state.balanceBRUT}</strong> (BRST)
               </p>
 
               <div className="form-group">
-                <input type="number" className="form-control mb-20 text-center" id="amountBRUT"  onChange={this.handleChangeBRUT} placeholder={minventa}></input>
+                <input type="number" className="form-control mb-20 text-center" id="amountBRUT"  onChange={this.handleChangeBRUT} placeholder={minventa} min={this.state.minventa} max={this.state.balanceBRUT}></input>
                 <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
 
                 <a href="#convert" className="gradient-btn v2" onClick={() => this.venta()}>{this.state.depositoBRUT} {(this.state.precioBRUT*this.state.valueBRUT).toFixed(6)} TRX</a>
@@ -390,13 +396,15 @@ export default class Trading extends Component {
             
           </div>
 
-          <div className="col-lg-12 p-3">
-            <div className="card">
+          <div className="col-lg-12">
+            <div className="card pt-4">
             
               
-              <h6 >
+              <h5 >
                 <strong>Retirar a Wallet</strong><br />
-              </h6>
+              </h5>
+
+              <hr color="white"/>
 
               <p>
                 Tron Pendiente: <strong>{this.state.cantidad}</strong> (TRX)<br></br>

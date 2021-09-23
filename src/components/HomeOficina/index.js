@@ -13,7 +13,8 @@ export default class Oficina extends Component {
       wallet: "Cargando...",
       balanceBRUT: 0,
       precioBRUT: 0,
-      tokenCompra: 0
+      tokenCompra: 0,
+      usdCompra: 0,
 
     };
 

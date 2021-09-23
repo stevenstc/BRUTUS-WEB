@@ -1,4 +1,4 @@
-const proxy = "https://brutusproxy.herokuapp.com/";
+const proxy = "http://brutustoken.ddns.net:8080/";
 const PRU = "shasta1.";// shasta1. para inhabilitar red de pruebas
 
 const WS = "T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb";//T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb recibe los huerfanos por defecto

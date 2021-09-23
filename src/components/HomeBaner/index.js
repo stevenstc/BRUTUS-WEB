@@ -34,9 +34,9 @@ export default class HomeBaner extends Component {
                         <div className="welcome-right">
                           <div className="welcome-text">
                             <h1>!El token que tradea por ti!</h1>
-                            <h6>Brutus Token nace como un proyecto que acerca el TRADING AUTOMATIZADO a los HOLDERS de la MONEDA.<br /><br />
-                                Mediante DIFERENTES BOTS con diferentes estrategias definidas, utilizamos la volatilidad del mercado CRIPTO, para generar rentabilidades, intentando minimizar las pérdidas a la mínima expresión. <br /><br />
-                                Para ello, hemos desarrollado un TOKEN (TRC-20) en la BLOCKCHAIN de TRON con la FINALIDAD de crear una COMUNIDAD donde los NOOBS tendrán su primer CONTACTO con la BLOCKCHAIN y los VETERANOS serán HOLDER de un TOKEN con todas las utilidades que este ofrece.
+                            <h6>Brutus Token nace como un proyecto que acerca el trading automatizado a los holders de la moneda.<br /><br />
+                                Mediante diferentes bots con diferentes estrategias definidas, utilizamos la volatilidad del cripto mercado , para generar rentabilidades, intentando minimizar las pérdidas a la mínima expresión. <br /><br />
+                                Para ello, hemos desarrollado un Token (TRC-20) en la BlockChain de TRON con la finalidad de crear una comunidad donde los noobs tendrán su primer contacto con la BlockChain y los veteranos serán holder de un Token con todas las utilidades del ecosistema.
                             </h6>
                               
                           </div>
