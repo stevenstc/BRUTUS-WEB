@@ -54,7 +54,7 @@ contract PoolBRST is Ownable{
 
   mapping (address => Solicitud) public solicitudes;
   mapping (uint => address) public solicitudesEnProgreso;
-  uint index = 0;
+  uint public index = 0;
 
   constructor(address _tokenTRC20) {
     BRTS_Contract = TRC20_Interface(_tokenTRC20);

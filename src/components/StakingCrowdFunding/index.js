@@ -125,10 +125,15 @@ export default class Trading extends Component {
 
     var deposito = await Utils.contract.solicitudes(accountAddress).call();
 
+    var tiempo = await Utils.contract.TIEMPO().call();
+
+    tiempo = parseInt(tiempo._hex)*1000;
+
     deposito.cantidad = parseInt(deposito.cantidad._hex)/10**6;
     deposito.tiempo = parseInt(deposito.tiempo._hex)*1000;
+    deposito.tiempo += tiempo;
 
-    var enBrutus = await Utils.contract.TRON_TOTAL_BALANCE().call();
+    var enBrutus = await Utils.contract.TRON_BALANCE().call();
     var tokensEmitidos = await contractBRUT.totalSupply().call();
     var enPool = await Utils.contract.TRON_PAY_BALANCE().call();
 
@@ -142,6 +147,7 @@ export default class Trading extends Component {
       precioBRUT: precioBRUT,
       cantidad: deposito.cantidad,
       tiempo: deposito.tiempo,
+      espera: tiempo,
       enBrutus: parseInt(enBrutus._hex)/10**6,
       tokensEmitidos: parseInt(tokensEmitidos._hex)/10**6,
       enPool: parseInt(enPool._hex)/10**6,
@@ -269,15 +275,7 @@ export default class Trading extends Component {
 
   async retiro() {
 
-    var accountAddress =  await window.tronWeb.trx.getAccount();
-    accountAddress = window.tronWeb.address.fromHex(accountAddress.address);
-
-    var deposito = await Utils.contract.solicitudes(accountAddress).call();
-
-    deposito.cantidad = parseInt(deposito.cantidad._hex)/10**6;
-    deposito.tiempo = parseInt(deposito.tiempo._hex)*1000;
-
-    if (Date.now() >= deposito.tiempo && deposito.tiempo !== 0) {
+    if (Date.now() >= this.state.tiempo && this.state.tiempo-this.state.espera !== 0) {
       await Utils.contract.retirar().send();
     }else{
       window.alert("todavia no es tiempo de retirar");
@@ -302,7 +300,7 @@ export default class Trading extends Component {
       cantidad2 = 0;
     }
 
-    if (tiempo === 0) {
+    if (tiempo-this.state.espera === 0) {
       tiempo = "## ## ####";
       
     }else{
@@ -359,7 +357,7 @@ export default class Trading extends Component {
                 <input type="number" className="form-control mb-20 text-center" id="amountUSDT"  onChange={this.handleChangeUSDT} placeholder={minCompra} min={this.state.minCompra} max={this.state.balanceUSDT}></input>
                 <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
 
-                <a href="#convert" className="gradient-btn v2" onClick={() => this.compra()}>{this.state.depositoUSDT} {} {(this.state.valueUSDT/this.state.precioBRUT).toFixed(6)} BRST</a>
+                <a href="javascript:void(0)" className="gradient-btn v2" onClick={() => this.compra()}>{this.state.depositoUSDT} {} {(this.state.valueUSDT/this.state.precioBRUT).toFixed(6)} BRST</a>
 
               </div>
               
@@ -387,7 +385,7 @@ export default class Trading extends Component {
                 <input type="number" className="form-control mb-20 text-center" id="amountBRUT"  onChange={this.handleChangeBRUT} placeholder={minventa} min={this.state.minventa} max={this.state.balanceBRUT}></input>
                 <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
 
-                <a href="#convert" className="gradient-btn v2" onClick={() => this.venta()}>{this.state.depositoBRUT} {(this.state.precioBRUT*this.state.valueBRUT).toFixed(6)} TRX</a>
+                <a href="javascript:void(0)" className="gradient-btn v2" onClick={() => this.venta()}>{this.state.depositoBRUT} {(this.state.precioBRUT*this.state.valueBRUT).toFixed(6)} TRX</a>
 
 
               </div>
@@ -415,7 +413,7 @@ export default class Trading extends Component {
           
                 <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
 
-                <a href="#convert" className="gradient-btn v2" onClick={() => this.retiro()}>{cantidad2} TRX</a>
+                <a href="javascript:void(0)" className="gradient-btn v2" onClick={() => this.retiro()}>{cantidad2} TRX</a>
 
 
               </div>
