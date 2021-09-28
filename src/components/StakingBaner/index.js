@@ -34,9 +34,12 @@ export default class HomeBaner extends Component {
                         <div className="welcome-right">
                           <div className="welcome-text">
                             <h1>BRUTUS TRON STAKING</h1>
-                            <h6>En BRUTUS, hemos desarrollado un producto que genera RENTABILIDADES EXPONENCIALES en TRON, aplicando INTERES COMPUESTO DIARIO sobre el STAKING generado, además de INVERTIR EN DIFERENTES POOLS de LIQUIDEZ. De esta FORMA, tu STAKING de TRX, crece dia a dia sin necesidad de que tengas que preocuparte de RECLAMAR TUS GANANCIA.<br /><br />
-                              Por otro lado con tu STAKING contribuyes al CONSTANTE desarrollo de la BLOCKCHAIN de TRON, ya que nos COMPROMETEMOS a delegar los TOKENS en los DESARROLLADORES que más ACTIVAMENTE participan en las mejoras del ECOSISTEMA.<br /><br />
-                              Para terminar tu STAKING genera energía lo que nos PERMITIRÁ mover los TOKENS a coste cero mejorando así las rentabilidades OBTENIDAS.
+                            <h6>
+                              En Brutus creemos que el staking es una de las formas más seguras de generar rentabilidades, por eso consideramos crear este producto.<br /><br />
+                              Brutus Tron Staking, es uno de los 127 super socios que reparte las rentabilidades obtenidas por el staking de Tron entre todos los componentes de la comunidad Brutus que apoyan al proyecto.<br /><br />
+                              Principalmente los usuarios pueden participar de dos maneras, la primera es gracias a nuestro token propio Brutus  Staking (BRST), mediante el cual los  poseedores de la moneda, obtendrán rentabilidades adicionales en Tron gracias a la reinversión del interés compuesto a díario.<br /><br />
+                              La segunda es votando por nosotros mediante el congelado de Tron.<br /><br />
+                              Brutus Tron Staking, pretende ser uno de los principales validadores de habla hispana dentro del ecosistema, además de generar interesantes rentabilidades para sus votantes.
                             </h6>
             
                           </div>
