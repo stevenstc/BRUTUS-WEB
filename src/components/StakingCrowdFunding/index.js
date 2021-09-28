@@ -324,20 +324,20 @@ export default class Trading extends Component {
         
         <div className="card">
           <div className="row">
+
             <div className="col-lg-4">
-              
                 <h2>TRX en SR</h2>
                 <p>{this.state.enBrutus} TRX</p>
             </div>
 
             <div className="col-lg-4">
-                <h2>BRST emitidos</h2>
-                <p>{this.state.tokensEmitidos} BRST</p>
+                <h2>1 BRST</h2>
+                <p>{(this.state.enBrutus/this.state.tokensEmitidos).toFixed(6)} TRX</p>
             </div>
 
             <div className="col-lg-4">
-                <h2>TRX solicitado</h2>
-                <p>{this.state.solicitado} TRX</p>
+                <h2>BRST emitidos</h2>
+                <p>{this.state.tokensEmitidos} BRST</p>
             </div>
 
           </div>
