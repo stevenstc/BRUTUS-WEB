@@ -23,6 +23,7 @@ export default class Trading extends Component {
       enBrutus: 0,
       tokensEmitidos: 0,
       enPool: 0,
+      solicitado: 0,
 
     };
 
@@ -136,6 +137,8 @@ export default class Trading extends Component {
     var enBrutus = await Utils.contract.TRON_BALANCE().call();
     var tokensEmitidos = await contractBRUT.totalSupply().call();
     var enPool = await Utils.contract.TRON_PAY_BALANCE().call();
+    var solicitado = await Utils.contract.TRON_SOLICITADO().call();
+    var solicitudes = await Utils.contract.index().call();
 
     //console.log(tokensEmitidos);
     this.setState({
@@ -151,6 +154,8 @@ export default class Trading extends Component {
       enBrutus: parseInt(enBrutus._hex)/10**6,
       tokensEmitidos: parseInt(tokensEmitidos._hex)/10**6,
       enPool: parseInt(enPool._hex)/10**6,
+      solicitado: parseInt(solicitado._hex)/10**6,
+      solicitudes: parseInt(solicitudes._hex)/10**6,
     });
 
   }
@@ -318,24 +323,24 @@ export default class Trading extends Component {
       <div className="container text-center">
         
         <div className="card">
-        <div className="row">
-          <div className="col-lg-4">
-            
-              <h2>TRX en SR</h2>
-              <p>{this.state.enBrutus} TRX</p>
-          </div>
+          <div className="row">
+            <div className="col-lg-4">
+              
+                <h2>TRX en SR</h2>
+                <p>{this.state.enBrutus} TRX</p>
+            </div>
 
-          <div className="col-lg-4">
-              <h2>BRST emitidos</h2>
-              <p>{this.state.tokensEmitidos} BRST</p>
-          </div>
+            <div className="col-lg-4">
+                <h2>BRST emitidos</h2>
+                <p>{this.state.tokensEmitidos} BRST</p>
+            </div>
 
-          <div className="col-lg-4">
-              <h2>TRX en pool</h2>
-              <p>{this.state.enPool} TRX</p>
-          </div>
+            <div className="col-lg-4">
+                <h2>TRX solicitado</h2>
+                <p>{this.state.solicitado} TRX</p>
+            </div>
 
-        </div>
+          </div>
 
         </div>
         <div className="row">
@@ -423,6 +428,40 @@ export default class Trading extends Component {
           </div>
 
         </div>
+
+        <div className="card">
+          <div className="row">
+
+            <div className="col-lg-4">
+                <h2>TRX Disponible</h2>
+                <p>{this.state.enPool} TRX</p>
+            </div>
+
+            <div className="col-lg-4">
+                <h2>TRX solicitado</h2>
+                <p>{this.state.solicitado} TRX</p>
+            </div>
+
+            <div className="col-lg-4">
+                <h2>En proceso</h2>
+                <p>{this.state.solicitado-this.state.enPool} TRX</p>
+            </div>
+
+          </div>
+
+          <hr  color="white"/>
+
+          <div className="row">
+
+            <div className="col-lg-12">
+                <h2>Solicitudes</h2>
+                <p>#{this.state.solicitudes}</p>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
 
