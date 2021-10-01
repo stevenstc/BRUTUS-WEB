@@ -82,7 +82,7 @@ export default class Oficina extends Component {
               <h6 className="p-3">
                 Brutus Token: <strong>{this.state.balanceBRUT}</strong> (BRST) <br />
               
-                Valor: <strong>{this.state.balanceBRUT*this.state.precioBRUT}</strong> (TRX)
+                Valor: <strong>{(this.state.balanceBRUT*this.state.precioBRUT).toFixed(6)}</strong> (TRX)
               </h6>
 
               
