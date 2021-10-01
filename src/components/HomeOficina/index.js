@@ -33,7 +33,7 @@ export default class Oficina extends Component {
     var proxyUrl = cons.proxy;
     var apiUrl = cons.PRICE;
 
-    var response;
+    var response = {};
     try {
       response = await fetch(proxyUrl+apiUrl);
     } catch (err) {

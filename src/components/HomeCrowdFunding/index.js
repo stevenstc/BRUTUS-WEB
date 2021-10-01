@@ -56,7 +56,6 @@ export default class Trading extends Component {
     }
 
     const json = await response.json();
-
     return json.Data.precio;
 
   };
