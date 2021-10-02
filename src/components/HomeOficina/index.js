@@ -98,7 +98,7 @@ export default class Oficina extends Component {
               <h6 className="p-3">
                 Brutus Token: <strong>{this.state.balanceBRUT}</strong> (BRUT) <br />
               
-                Valor: <strong>{this.state.balanceBRUT*this.state.precioBRUT}</strong> (USDT)
+                Valor: <strong>{(this.state.balanceBRUT*this.state.precioBRUT)}</strong> (USDT)
               </h6>
 
               
@@ -141,7 +141,7 @@ export default class Oficina extends Component {
               </h6>
               <p>
                 Cantidad: <strong>{this.state.tokenCompra}</strong> (BRUT)<br /><br />
-                Precio: <strong>{this.state.usdCompra/this.state.tokenCompra}</strong> (USDT)
+                Precio: <strong>{(this.state.usdCompra/this.state.tokenCompra)}</strong> (USDT)
               </p>
               <hr />
               <p>
