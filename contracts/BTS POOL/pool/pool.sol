@@ -32,17 +32,12 @@ contract PoolBRST is Ownable{
 
   TRC20_Interface OTRO_Contract;
 
-  struct Solicitud {
-    uint256 tiempo;
-    uint256 trx;
-    uint256 brst;
-    bool completado;
-    address partner;
-
-  }
-
   struct Usuario {
-    Solicitud[] solicitudes;
+    uint256[] tiempo;
+    uint256[] trx;
+    uint256[] brst;
+    bool[] completado;
+    address[] partner;
 
   }
 
@@ -60,7 +55,7 @@ contract PoolBRST is Ownable{
 
   address public NoValido = address(0);
 
-  mapping (address => Usuario) public usuarios;
+  mapping (address => Usuario) private usuarios;
   mapping (uint => address) public solicitudesEnProgreso;
   uint public index = 0;
 
@@ -166,7 +161,11 @@ contract PoolBRST is Ownable{
 
     Usuario storage usuario = usuarios[msg.sender];
 
-    usuario.solicitudes.push(Solicitud(block.timestamp, pago, _value, false, address(0)));
+    usuario.tiempo.push(block.timestamp);
+    usuario.trx.push(pago);
+    usuario.brst.push(_value);
+    usuario.completado.push(false);
+    usuario.partner.push(address(0));
 
     TRON_WALLET_BALANCE -= pago;
     TRON_SOLICITADO += pago;
@@ -174,7 +173,7 @@ contract PoolBRST is Ownable{
     solicitudesEnProgreso[index] = msg.sender;
     index++;
 
-    return solicitud.cantidad;
+    return pago;
 
   }
 
@@ -182,9 +181,9 @@ contract PoolBRST is Ownable{
 
     Usuario storage usuario = usuarios[msg.sender];
 
-    if( _id >= largoSolicitudes() || block.timestamp < solicitud.tiempo.add(TIEMPO()) || usuario.solicitudes[_id].completado )revert();
+    if( _id >= largoSolicitudes(msg.sender) || block.timestamp < usuario.tiempo[_id].add(TIEMPO()) || usuario.completado[_id] )revert();
 
-    uint pago = usuario.solicitudes[_id].cantidad;
+    uint pago = usuario.trx[_id];
 
     if(TRON_PAY_BALANCE() < pago)revert();
     payable(msg.sender).transfer(pago);
@@ -192,27 +191,27 @@ contract PoolBRST is Ownable{
 
   }
 
-  function largoSolicitudes() public view returns(uint256){
+  function largoSolicitudes(address _user) public view returns(uint256){
 
-    Usuario storage usuario = usuarios[msg.sender];
+    Usuario storage usuario = usuarios[_user];
 
-    return usuario.solicitudes.length ;
-
-  }
-
-  function todasSolicitudes() public view returns(Solicitud storage ){
-
-    Usuario storage usuario = usuarios[msg.sender];
-
-    return usuario.solicitudes;
+    return usuario.trx.length ;
 
   }
 
-  function solicitudesPendientes() public view returns(Solicitud storage ){
+  function todasSolicitudes() public view returns(uint256[] memory tiempo, uint256[] memory trx, uint256[] memory brst, bool[] memory completado, address[] memory partner){
 
     Usuario storage usuario = usuarios[msg.sender];
 
-    return usuario.solicitudes;
+    return (usuario.tiempo, usuario.trx, usuario.brst, usuario.completado, usuario.partner);
+  }
+
+  function solicitudesPendientes() public view returns(uint256[] memory tiempo, uint256[] memory trx, uint256[] memory brst, bool[] memory completado, address[] memory partner){
+
+    Usuario storage usuario = usuarios[msg.sender];
+
+    return (usuario.tiempo, usuario.trx, usuario.brst, usuario.completado, usuario.partner);
+
 
   }
 
@@ -220,21 +219,21 @@ contract PoolBRST is Ownable{
 
     Usuario storage usuario = usuarios[_user];
 
-    if(msg.value != usuario.solicitudes[_id].trx && usuario.solicitudes[_id].completado)revert();
+    if(msg.value != usuario.trx[_id] && usuario.completado[_id])revert();
 
-      _user.transfer(usuario.solicitudes[_id].trx);
-      BRTS_Contract.transfer(msg.sender, usuario.solicitudes[_id].brst);
-      usuario.solicitudes[_id].partner = msg.sender;
-      usuario.solicitudes[_id].completado = true;
-      TRON_SOLICITADO -= usuario.solicitudes[_id].trx;
+    payable(_user).transfer(usuario.trx[_id]);
+    BRTS_Contract.transfer(msg.sender, usuario.brst[_id]);
+    usuario.partner[_id] = msg.sender;
+    usuario.completado[_id] = true;
+    TRON_SOLICITADO -= usuario.trx[_id];
 
-      return true;
+    return true;
 
   }
 
   function staking() public payable returns (uint) {
 
-    if(_value < MIN_DEPOSIT)revert();
+    if(msg.value < MIN_DEPOSIT)revert();
     uint _value = msg.value;
       
     payable(owner).transfer(_value);
