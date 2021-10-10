@@ -32,9 +32,17 @@ contract PoolBRST is Ownable{
 
   TRC20_Interface OTRO_Contract;
 
-   struct Solicitud {
+  struct Solicitud {
     uint256 tiempo;
-    uint256 cantidad;
+    uint256 trx;
+    uint256 brst;
+    bool completado;
+    address partner;
+
+  }
+
+  struct Usuario {
+    Solicitud[] solicitudes;
 
   }
 
@@ -52,7 +60,7 @@ contract PoolBRST is Ownable{
 
   address public NoValido = address(0);
 
-  mapping (address => Solicitud) public solicitudes;
+  mapping (address => Usuario) public usuarios;
   mapping (uint => address) public solicitudesEnProgreso;
   uint public index = 0;
 
@@ -147,20 +155,18 @@ contract PoolBRST is Ownable{
 
   }
 
-  function solicitudRetiro(uint _value) public returns (uint){
+  function solicitudRetiro(uint256 _value) public returns (uint256){
 
-    require( BRTS_Contract.allowance(msg.sender, address(this)) >= _value, "saldo aprovado insuficiente");
-    require( BRTS_Contract.balanceOf(msg.sender) >= _value, "No tienes saldo" );
+    if( BRTS_Contract.allowance(msg.sender, address(this)) < _value || BRTS_Contract.balanceOf(msg.sender) < _value)revert();
 
     uint pago = _value.mul(RATE()).div(10 ** BRTS_Contract.decimals());
     
-    require( BRTS_Contract.transferFrom(msg.sender, address(this), _value));
-    BRTS_Contract.redeem(_value);
+    if( !BRTS_Contract.transferFrom(msg.sender, address(this), _value) )revert();
+    //BRTS_Contract.redeem(_value);
 
-    Solicitud storage solicitud = solicitudes[msg.sender];
+    Usuario storage usuario = usuarios[msg.sender];
 
-    solicitud.cantidad += pago;
-    solicitud.tiempo = block.timestamp;
+    usuario.solicitudes.push(Solicitud(block.timestamp, pago, _value, false, address(0)));
 
     TRON_WALLET_BALANCE -= pago;
     TRON_SOLICITADO += pago;
@@ -172,44 +178,75 @@ contract PoolBRST is Ownable{
 
   }
 
-  function retirar() public returns (uint){
+  function retirar(uint256 _id) public {
 
-    Solicitud storage solicitud = solicitudes[msg.sender];
+    Usuario storage usuario = usuarios[msg.sender];
 
-    require( block.timestamp >= solicitud.tiempo.add(TIEMPO()),"no es tiempo para reclamar");
+    if( _id >= largoSolicitudes() || block.timestamp < solicitud.tiempo.add(TIEMPO()) || usuario.solicitudes[_id].completado )revert();
 
-    uint pago = solicitud.cantidad;
+    uint pago = usuario.solicitudes[_id].cantidad;
 
-    require(TRON_PAY_BALANCE() >= pago, "no hay saldo para retirar");
+    if(TRON_PAY_BALANCE() < pago)revert();
     payable(msg.sender).transfer(pago);
     TRON_SOLICITADO -= pago;
 
-    delete solicitud.cantidad;
-    delete solicitud.tiempo;
+  }
 
-    return pago;
+  function largoSolicitudes() public view returns(uint256){
+
+    Usuario storage usuario = usuarios[msg.sender];
+
+    return usuario.solicitudes.length ;
+
+  }
+
+  function todasSolicitudes() public view returns(Solicitud storage ){
+
+    Usuario storage usuario = usuarios[msg.sender];
+
+    return usuario.solicitudes;
+
+  }
+
+  function solicitudesPendientes() public view returns(Solicitud storage ){
+
+    Usuario storage usuario = usuarios[msg.sender];
+
+    return usuario.solicitudes;
+
+  }
+
+  function completarSolicitud(address _user ,uint256 _id) public payable returns (bool){
+
+    Usuario storage usuario = usuarios[_user];
+
+    if(msg.value != usuario.solicitudes[_id].trx && usuario.solicitudes[_id].completado)revert();
+
+      _user.transfer(usuario.solicitudes[_id].trx);
+      BRTS_Contract.transfer(msg.sender, usuario.solicitudes[_id].brst);
+      usuario.solicitudes[_id].partner = msg.sender;
+      usuario.solicitudes[_id].completado = true;
+      TRON_SOLICITADO -= usuario.solicitudes[_id].trx;
+
+      return true;
 
   }
 
   function staking() public payable returns (uint) {
 
+    if(_value < MIN_DEPOSIT)revert();
     uint _value = msg.value;
-
-    if (_value >= MIN_DEPOSIT) {
       
-      payable(owner).transfer(_value);
+    payable(owner).transfer(_value);
 
-      _value = (_value.mul( 10 ** BRTS_Contract.decimals() )).div(RATE());
-      TRON_WALLET_BALANCE += msg.value;
+    _value = (_value.mul( 10 ** BRTS_Contract.decimals() )).div(RATE());
+    TRON_WALLET_BALANCE += msg.value;
 
-      BRTS_Contract.issue(_value);
+    BRTS_Contract.issue(_value);
 
-      BRTS_Contract.transfer(msg.sender,_value);
+    BRTS_Contract.transfer(msg.sender,_value);
 
-      return _value;
-    }else{
-        revert();
-    }
+    return _value;
 
   }
 
@@ -261,15 +298,15 @@ contract PoolBRST is Ownable{
       
   }
 
-  function quemarBRTS(uint _value) public onlyOwner returns(bool){
+  function quemarBRTS(uint _value) public onlyOwner returns(bool, uint256){
 
-    require( BRTS_Contract.allowance(msg.sender, address(this)) >= _value, "saldo aprovado insuficiente");
-    require( BRTS_Contract.balanceOf(msg.sender) >= _value, "No tienes saldo" );
-    require( BRTS_Contract.transferFrom(msg.sender, address(this), _value));
+    if( BRTS_Contract.allowance(msg.sender, address(this)) < _value || 
+    BRTS_Contract.balanceOf(msg.sender) < _value ||
+    !BRTS_Contract.transferFrom(msg.sender, address(this), _value))revert();
       
     BRTS_Contract.redeem(_value);
 
-    return true;
+    return (true,_value);
       
   }
 
@@ -284,7 +321,7 @@ contract PoolBRST is Ownable{
 
   function redimBRTS02(uint _value) public onlyOwner returns (uint256) {
 
-    require ( BRTS_Contract.balanceOf(address(this)) >= _value, "The contract has no balance");
+    if ( BRTS_Contract.balanceOf(address(this)) < _value)revert();
 
     BRTS_Contract.transfer(owner, _value);
 
@@ -303,7 +340,7 @@ contract PoolBRST is Ownable{
 
   function redimTRX() public onlyOwner returns (uint256){
 
-    require ( address(this).balance > 0, "The contract has no balance");
+    if ( address(this).balance == 0)revert();
 
     payable(owner).transfer( address(this).balance );
 
@@ -313,7 +350,7 @@ contract PoolBRST is Ownable{
 
   function redimTRX(uint _value) public onlyOwner returns (uint256){
 
-    require ( address(this).balance >= _value, "The contract has no balance");
+    if ( address(this).balance < _value)revert();
 
     payable(owner).transfer( _value);
 
