@@ -238,7 +238,10 @@ export default class Trading extends Component {
 
           document.getElementById("amountBRUT").value = "";
 
-          await Utils.contract.solicitudRetiro(amount).send();
+          //var pass = window.confirm("tu solicitud quedará a la espera de que sea completada por la comunidad, la operacion sino es completada en un plazo de 15 días Brutus tomará la solicitud");
+          //if(pass){await Utils.contract.solicitudRetiro(amount).send()};
+
+          window.alert("Estamos actualizando a la version 3 del contrato de liquidez por favor contacta atravez de telegram para intercambiar tus BRST por TRX, estamos mejorando nustro sistema ;)");
 
         }else{
           window.alert("Please enter an amount greater than 10 USDT");
