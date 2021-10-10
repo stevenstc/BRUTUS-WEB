@@ -155,7 +155,7 @@ export default class Trading extends Component {
       tokensEmitidos: parseInt(tokensEmitidos._hex)/10**6,
       enPool: parseInt(enPool._hex)/10**6,
       solicitado: parseInt(solicitado._hex)/10**6,
-      solicitudes: parseInt(solicitudes._hex)/10**6,
+      solicitudes: parseInt(solicitudes._hex),
     });
 
   }

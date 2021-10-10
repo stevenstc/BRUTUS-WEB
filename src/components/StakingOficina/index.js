@@ -92,11 +92,9 @@ export default class Oficina extends Component {
             <div className="card">
             <br /><br />
             
-              
               <h6 >
                 <strong>Precio actual Brutus Staking (BRST)</strong><br />
               </h6>
-
 
               <h2>
                 <strong>{this.state.precioBRUT}</strong> <br />
@@ -106,12 +104,6 @@ export default class Oficina extends Component {
             </div>
               
           </div>
-
-
-    
-
-          
-
 
         </div>
       </div>
