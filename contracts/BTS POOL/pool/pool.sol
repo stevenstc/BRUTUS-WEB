@@ -33,10 +33,11 @@ contract PoolBRST is Ownable{
   TRC20_Interface OTRO_Contract;
 
   struct Usuario {
+    uint[] id;
+    bool[] completado; 
     uint256[] tiempo;
     uint256[] trx;
     uint256[] brst;
-    bool[] completado;
     address[] partner;
 
   }
@@ -56,7 +57,9 @@ contract PoolBRST is Ownable{
   address public NoValido = address(0);
 
   mapping (address => Usuario) private usuarios;
-  mapping (uint => address) public solicitudesEnProgreso;
+  mapping (uint => address ) public solicitudesEnProgreso;
+  mapping (uint => uint ) public solicitudInterna;
+
   uint public index = 0;
 
   constructor(address _tokenTRC20) {
@@ -161,16 +164,18 @@ contract PoolBRST is Ownable{
 
     Usuario storage usuario = usuarios[msg.sender];
 
+    usuario.id.push(index);
+    usuario.completado.push(false);
     usuario.tiempo.push(block.timestamp);
     usuario.trx.push(pago);
     usuario.brst.push(_value);
-    usuario.completado.push(false);
     usuario.partner.push(address(0));
 
     TRON_WALLET_BALANCE -= pago;
     TRON_SOLICITADO += pago;
 
     solicitudesEnProgreso[index] = msg.sender;
+    solicitudInterna[index] = usuario.id.length-1;
     index++;
 
     return pago;
@@ -187,6 +192,8 @@ contract PoolBRST is Ownable{
 
     if(TRON_PAY_BALANCE() < pago)revert();
     payable(msg.sender).transfer(pago);
+    BRTS_Contract.redeem(usuario.brst[_id]);
+    usuario.completado[_id] = true;
     TRON_SOLICITADO -= pago;
 
   }
@@ -215,8 +222,10 @@ contract PoolBRST is Ownable{
 
   }
 
-  function completarSolicitud(address _user ,uint256 _id) public payable returns (bool){
+  function completarSolicitud(uint256 _index) public payable returns (bool){
 
+    address _user = solicitudesEnProgreso[_index];
+    uint _id = solicitudInterna[_index];
     Usuario storage usuario = usuarios[_user];
 
     if(msg.value != usuario.trx[_id] && usuario.completado[_id])revert();
@@ -225,6 +234,7 @@ contract PoolBRST is Ownable{
     BRTS_Contract.transfer(msg.sender, usuario.brst[_id]);
     usuario.partner[_id] = msg.sender;
     usuario.completado[_id] = true;
+    TRON_WALLET_BALANCE += usuario.trx[_id];
     TRON_SOLICITADO -= usuario.trx[_id];
 
     return true;
