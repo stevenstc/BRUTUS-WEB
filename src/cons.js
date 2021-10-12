@@ -1,4 +1,4 @@
-const proxy = "https://brutusproxy.herokuapp.com/";
+const proxy = "";
 const PRICE = "https://brutusprecio.herokuapp.com/api/v1/precio/BRUT"; //API de precio
 const PRU = "shasta1.";// shasta1. para inhabilitar red de pruebas
 
@@ -13,7 +13,5 @@ const BRUT = "TMnV9TeTFDUKmZR3ZQsMfd362hofvcFnqi";// contract for token trc20
 const SC2 = "TNGkvCofQcECQFHmuwZ1119uVK8qJYU5C4";// direccion del contrato N°2 POOL Staking
 
 const BRST = "TF8YgHqnJdWzCbUyouje3RYrdDKJYpGfB3";//TF8YgHqnJdWzCbUyouje3RYrdDKJYpGfB3 contract for token trc20 BRST
-
-
 
 export default {proxy, PRU, WS,  SC, USDT, PRICE, BRUT, SC2, BRST};

@@ -46,32 +46,74 @@
                     <div class="mobile-menu"></div>
                 </div>
                 <div class="col-4 col-lg-2 text-center">
-                        <a href="#home" class="scroll"><img src="assets/img/BRUTUS+TOKEN+PNG+LETRA+blanca.png" alt="brutus token" height="50px"></a>
-                        <span id="p1" class="scroll text-uppercase"  >$Loading... USDT</span>
+                        <a href="/" class="scroll"><img id="imagen" src="assets/img/BRUTUS+TOKEN+PNG+LETRA+blanca.png" alt="logo de brutus" height="50px"></a>
+                        <span id="p1" class="scroll text-uppercase"  >Loading...</span>
                              
     
                                 <script type="text/javascript">
 
                                     function consulta(){
-                                        var proxyUrl = 'https://brutusproxy.herokuapp.com/';
                                         var apiUrl = 'https://brutusprecio.herokuapp.com/api/v1/precio/BRUT';
-                                        fetch(proxyUrl+apiUrl).then(response => {
+                                        fetch(apiUrl).then(response => {
                                         return response.json();
                                         }).then(data => {
                                         // Work with JSON data
                                         var price = data.Data.precio;
                                         //console.log(price);
+
+                                        var elem = document.getElementById("imagen");
+                                        elem.src = "assets/img/BRUTUS+TOKEN+PNG+LETRA+blanca.png";
         
                                         document.getElementById("p1").innerHTML = "$"+price+" USDT";
                                         }).catch(err => {
                                             console.log(err);
-                                            document.getElementById("p1").innerHTML = "$Loading... USDT";
+                                            document.getElementById("p1").innerHTML = "Loading...";
                                         
                                         });
                                     }
 
-                                    consulta();
-                                    
+                                    function consulta2(){
+                                        var apiUrl = 'https://brutusprecio.herokuapp.com/api/v1/precio/BRST';
+                                        fetch(apiUrl).then(response => {
+                                        return response.json();
+                                        }).then(data => {
+                                        // Work with JSON data
+                                        var price = data.Data.trx;
+                                        //console.log(price);
+
+                                        var elem = document.getElementById("imagen");
+                                        elem.src = "assets/img/BRUTUS+BRST+PNG+LETRA+blanca.png";
+        
+                                        document.getElementById("p1").innerHTML = price+" TRX";
+                                        }).catch(err => {
+                                            console.log(err);
+                                            document.getElementById("p1").innerHTML = "Loading...";
+                                        
+                                        });
+                                    }
+
+                                    var getString = "";
+                                    var loc = document.location.href;
+                                    //console.log(loc);
+                                    if(loc.indexOf('?')>0){
+                                            
+                                    getString = loc.split('?')[1];
+                                    getString = getString.split('#')[0];
+
+                                    }
+
+                                    switch (getString) {
+                                    case "staking": 
+                                        consulta2();
+                                        break;
+                                    case "token": 
+                                        consulta();
+                                        break;
+                                    default:
+                                        consulta();
+                                        break;
+                                    }
+
                                 
                                 </script>
                 </div>
@@ -80,8 +122,8 @@
                         <nav>
                             <ul id="slick-nav">
                                 
-                                <li><a class="scroll" href="/">Intercambio</a></li>
-                                <li><a class="scroll parpadea" href="/?staking">Staking</a></li>
+                                <li><a class="scroll" href="/">BRUT (TOKEN)</a></li>
+                                <li><a class="scroll parpadea" href="/?staking">BRST (STAKING)</a></li>
                                 <li><a class="scroll" target="_black" rel='noopener noreferrer' href="https://justswap.io/?lang=en-US?tokenAddress=TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&type=swap">Comprar USDT</a></li>
                                 <li><a class="scroll" href="#team">Equipo</a></li>
                                 <li><a class="scroll" href="#faq">FAQ</a></li>
