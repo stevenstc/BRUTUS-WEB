@@ -51,6 +51,7 @@ export default class Trading extends Component {
   llenarBRUT(){
     document.getElementById('amountBRUT').value = this.state.balanceBRUT;
     this.setState({valueBRUT: this.state.balanceBRUT});
+    
   }
 
   llenarUSDT(){
@@ -124,15 +125,17 @@ export default class Trading extends Component {
 
     var precioBRUT =  await this.consultarPrecio();
 
-    var deposito = await Utils.contract.solicitudes(accountAddress).call();
+    var deposito = await Utils.contract.todasSolicitudes(accountAddress).call();
 
     var tiempo = await Utils.contract.TIEMPO().call();
 
     tiempo = parseInt(tiempo._hex)*1000;
 
-    deposito.cantidad = parseInt(deposito.cantidad._hex)/10**6;
-    deposito.tiempo = parseInt(deposito.tiempo._hex)*1000;
-    deposito.tiempo += tiempo;
+    console.log(deposito);
+
+    deposito.cantidad = 0;
+    deposito.tiempo = 0;
+    deposito.tiempo = tiempo;
 
     var enBrutus = await Utils.contract.TRON_BALANCE().call();
     var tokensEmitidos = await contractBRUT.totalSupply().call();
@@ -238,10 +241,10 @@ export default class Trading extends Component {
 
           document.getElementById("amountBRUT").value = "";
 
-          //var pass = window.confirm("tu solicitud quedará a la espera de que sea completada por la comunidad, la operacion sino es completada en un plazo de 15 días Brutus tomará la solicitud");
-          //if(pass){await Utils.contract.solicitudRetiro(amount).send()};
+          var pass = window.confirm("Tu solicitud generará una orden de venta esperando a que sea completada por la comunidad");
+          if(pass){await Utils.contract.solicitudRetiro(amount).send()};
 
-          window.alert("Estamos actualizando a la version 3 del contrato de liquidez por favor contacta atravez de telegram para intercambiar tus BRST por TRX, estamos mejorando nustro sistema ;)");
+          //window.alert("Estamos actualizando a la version 3 del contrato de liquidez por favor contacta atravez de telegram para intercambiar tus BRST por TRX, estamos mejorando nustro sistema ;)");
 
         }else{
           window.alert("Please enter an amount greater than 10 USDT");

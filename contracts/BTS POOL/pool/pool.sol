@@ -25,7 +25,7 @@ interface TRC20_Interface {
     function transferOwnership(address newOwner) external;
 }
 
-contract PoolBRST is Ownable{
+contract PoolBRSTv3 is Ownable{
   using SafeMath for uint;
 
   TRC20_Interface BRTS_Contract;
@@ -36,17 +36,17 @@ contract PoolBRST is Ownable{
     uint[] id;
     bool[] completado; 
     uint256[] tiempo;
-    uint256[] trx;
+    uint256[] trxx;
     uint256[] brst;
     address[] partner;
 
   }
 
-  uint public MIN_DEPOSIT = 10 *10**6;
+  uint public MIN_DEPOSIT = 10 * 10**6;
   uint public TRON_GANANCIAS = 0;
   uint public TRON_SOLICITADO = 0;
 
-  uint public TRON_WALLET_BALANCE = 13000 *10**6;
+  uint public TRON_WALLET_BALANCE = 10000 * 10**6;
 
   uint public porcentaje_equipo = 3;
   uint public porcentaje_usuarios = 97;
@@ -145,7 +145,7 @@ contract PoolBRST is Ownable{
 
   }
 
-  function transferirOwnerBRTS(address _newowner) public onlyOwner returns (bool){
+  function newOwnerBRTS(address _newowner) public onlyOwner returns (bool){
 
     BRTS_Contract.transferOwnership(_newowner);
 
@@ -167,11 +167,10 @@ contract PoolBRST is Ownable{
     usuario.id.push(index);
     usuario.completado.push(false);
     usuario.tiempo.push(block.timestamp);
-    usuario.trx.push(pago);
+    usuario.trxx.push(pago);
     usuario.brst.push(_value);
     usuario.partner.push(address(0));
 
-    TRON_WALLET_BALANCE -= pago;
     TRON_SOLICITADO += pago;
 
     solicitudesEnProgreso[index] = msg.sender;
@@ -188,12 +187,14 @@ contract PoolBRST is Ownable{
 
     if( _id >= largoSolicitudes(msg.sender) || block.timestamp < usuario.tiempo[_id].add(TIEMPO()) || usuario.completado[_id] )revert();
 
-    uint pago = usuario.trx[_id];
+    uint pago = usuario.trxx[_id];
 
     if(TRON_PAY_BALANCE() < pago)revert();
     payable(msg.sender).transfer(pago);
     BRTS_Contract.redeem(usuario.brst[_id]);
     usuario.completado[_id] = true;
+
+    TRON_WALLET_BALANCE -= pago;
     TRON_SOLICITADO -= pago;
 
   }
@@ -202,22 +203,63 @@ contract PoolBRST is Ownable{
 
     Usuario storage usuario = usuarios[_user];
 
-    return usuario.trx.length ;
+    return usuario.trxx.length ;
 
   }
 
-  function todasSolicitudes() public view returns(uint256[] memory tiempo, uint256[] memory trx, uint256[] memory brst, bool[] memory completado, address[] memory partner){
+  function todasSolicitudes(address _user) public view returns(uint[] memory id, uint256[] memory tiempo, uint256[] memory trxx, uint256[] memory brst, bool[] memory completado, address[] memory partner){
 
-    Usuario storage usuario = usuarios[msg.sender];
+    Usuario storage usuario = usuarios[_user];
 
-    return (usuario.tiempo, usuario.trx, usuario.brst, usuario.completado, usuario.partner);
+    return (usuario.id, usuario.tiempo, usuario.trxx, usuario.brst, usuario.completado, usuario.partner);
   }
 
-  function solicitudesPendientes() public view returns(uint256[] memory tiempo, uint256[] memory trx, uint256[] memory brst, bool[] memory completado, address[] memory partner){
 
-    Usuario storage usuario = usuarios[msg.sender];
+  function solicitudesPendientesGlobales() public view returns(uint256[] memory ){
 
-    return (usuario.tiempo, usuario.trx, usuario.brst, usuario.completado, usuario.partner);
+    uint256[] memory pGlobales;
+    address _user;
+    Usuario storage usuario;
+    
+    for (uint i = 0 ; i < index; i++) {
+
+      _user = solicitudesEnProgreso[i];
+
+      usuario = usuarios[_user];
+
+      if(!usuario.completado[solicitudInterna[i]]){
+        pGlobales = actualizarArray(pGlobales);
+        pGlobales[pGlobales.lentgh-1] = i;
+      }
+      
+    }
+    
+    return (pGlobales);
+
+  }
+
+  function actualizarArray(uint256[] memory oldArray)public pure returns ( uint256[] memory) {
+    uint256[] memory newArray = new uint256[](oldArray.length+1);
+
+    for(uint i = 0; i < oldArray.length; i++){
+        newArray[i] = oldArray[i];
+    }
+    
+    return newArray;
+  }
+
+  function verSolicitudPendiente(uint256 _id) public view returns(bool, uint, uint, uint, address){
+
+    address _user = solicitudesEnProgreso[_id];
+    Usuario storage usuario = usuarios[_user];
+
+    return (
+      usuario.completado[solicitudInterna[_id]],
+      usuario.tiempo[solicitudInterna[_id]],
+      usuario.trxx[solicitudInterna[_id]],
+      usuario.brst[solicitudInterna[_id]],
+      usuario.partner[solicitudInterna[_id]]
+    );
 
 
   }
@@ -228,14 +270,18 @@ contract PoolBRST is Ownable{
     uint _id = solicitudInterna[_index];
     Usuario storage usuario = usuarios[_user];
 
-    if(msg.value != usuario.trx[_id] && usuario.completado[_id])revert();
+    if(usuario.completado[_id])revert();
 
-    payable(_user).transfer(usuario.trx[_id]);
+    if(msg.sender != _user){
+      if(msg.value != usuario.trxx[_id])revert();
+      payable(_user).transfer(usuario.trxx[_id]);
+    }
+
     BRTS_Contract.transfer(msg.sender, usuario.brst[_id]);
     usuario.partner[_id] = msg.sender;
     usuario.completado[_id] = true;
-    TRON_WALLET_BALANCE += usuario.trx[_id];
-    TRON_SOLICITADO -= usuario.trx[_id];
+
+    TRON_SOLICITADO -= usuario.trxx[_id];
 
     return true;
 
