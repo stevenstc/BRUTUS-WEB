@@ -42,7 +42,7 @@ contract PoolBRSTv3 is Ownable{
 
   }
 
-  uint public MIN_DEPOSIT = 10 * 10**6;
+  uint public MIN_DEPOSIT = 1 * 10**6;
   uint public TRON_GANANCIAS = 0;
   uint public TRON_SOLICITADO = 0;
 
@@ -218,6 +218,7 @@ contract PoolBRSTv3 is Ownable{
   function solicitudesPendientesGlobales() public view returns(uint256[] memory ){
 
     uint256[] memory pGlobales;
+    uint256 a;
     address _user;
     Usuario storage usuario;
     
@@ -229,7 +230,8 @@ contract PoolBRSTv3 is Ownable{
 
       if(!usuario.completado[solicitudInterna[i]]){
         pGlobales = actualizarArray(pGlobales);
-        pGlobales[pGlobales.lentgh-1] = i;
+        pGlobales[a] = i;
+        a++;
       }
       
     }

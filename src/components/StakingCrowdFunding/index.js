@@ -241,7 +241,7 @@ export default class Trading extends Component {
 
           document.getElementById("amountBRUT").value = "";
 
-          var pass = window.confirm("Tu solicitud generará una orden de venta esperando a que sea completada por la comunidad");
+          var pass = window.confirm("Tu solicitud generará una orden de venta para tus BRST esperando a que sea completada por la comunidad");
           if(pass){await Utils.contract.solicitudRetiro(amount).send()};
 
           //window.alert("Estamos actualizando a la version 3 del contrato de liquidez por favor contacta atravez de telegram para intercambiar tus BRST por TRX, estamos mejorando nustro sistema ;)");
