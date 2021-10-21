@@ -38,6 +38,7 @@ export default class Trading extends Component {
     this.llenarUSDT = this.llenarUSDT.bind(this);
 
     this.consultarPrecio = this.consultarPrecio.bind(this);
+    this.completarSolicitud = this.completarSolicitud.bind(this);
   }
 
   handleChangeBRUT(event) {
@@ -77,6 +78,12 @@ export default class Trading extends Component {
     return precio;
 
   };
+
+  async completarSolicitud(id, trx){
+
+    await Utils.contract.completarSolicitud(id).send({callValue: trx});
+
+  }
 
   async estado(){
 
@@ -133,9 +140,39 @@ export default class Trading extends Component {
 
     console.log(deposito);
 
-    deposito.cantidad = 0;
-    deposito.tiempo = 0;
-    deposito.tiempo = tiempo;
+    var misDepositos = [];
+    
+    for (let index = 0; index < deposito.brst.length; index++) {
+      if (!deposito.completado[index]) {
+        var id = parseInt(deposito.id[index]._hex);
+        misDepositos.push(<div className="col-lg-12" key={"mis-"+id}>
+          <p># {id} | {parseInt(deposito.brst[index]._hex)/10**6} BRST -&gt; {parseInt(deposito.trxx[index]._hex)/10**6} TRX  {" "}
+          <button type="button" className="btn btn-warning" onClick={() => this.completarSolicitud(id, 0)}>Cancelar</button></p>
+          <hr></hr>
+        </div>)
+      }
+      
+    }
+
+    var deposits = await Utils.contract.solicitudesPendientesGlobales().call();
+
+    var globDepositos = [];
+
+    var pen;
+    
+    for (let index = 0; index < deposits.length; index++) {
+
+      pen = await Utils.contract.verSolicitudPendiente(parseInt(deposits[index]._hex)).call();
+
+      globDepositos[index] = (<div className="col-lg-12" key={"glob"+parseInt(deposits[index]._hex)}>
+          <p># {parseInt(deposits[index]._hex)} | {parseInt(pen[3]._hex)/10**6} BRST -&gt; {parseInt(pen[2]._hex)/10**6} TRX  {" "}
+          <button type="button" className="btn btn-prymary" onClick={() => this.completarSolicitud(parseInt(deposits[index]._hex),parseInt(pen[2]._hex))}>Completar</button></p>
+          <hr></hr>
+        </div>)
+      
+      
+    }
+
 
     var enBrutus = await Utils.contract.TRON_BALANCE().call();
     var tokensEmitidos = await contractBRUT.totalSupply().call();
@@ -145,14 +182,14 @@ export default class Trading extends Component {
 
     //console.log(tokensEmitidos);
     this.setState({
+      globDepositos: globDepositos,
+      misDepositos: misDepositos,
       depositoUSDT: aprovadoUSDT,
       depositoBRUT: aprovadoBRUT,
       balanceBRUT: balanceBRUT,
       balanceUSDT: balanceUSDT,
       wallet: accountAddress,
       precioBRUT: precioBRUT,
-      cantidad: deposito.cantidad,
-      tiempo: deposito.tiempo,
       espera: tiempo,
       enBrutus: parseInt(enBrutus._hex)/10**6,
       tokensEmitidos: parseInt(tokensEmitidos._hex)/10**6,
@@ -405,52 +442,13 @@ export default class Trading extends Component {
             
           </div>
 
-          <div className="col-lg-12">
-            <div className="card pt-4">
-            
-              
-              <h5 >
-                <strong>Retirar a Wallet</strong><br />
-              </h5>
-
-              <hr color="white"/>
-
-              <p>
-                Tron Pendiente: <strong>{this.state.cantidad}</strong> (TRX)<br></br>
-                Disponible despues de: <strong>{tiempo}</strong>
-              </p>
-
-              <div className="form-group">
-          
-                <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
-
-                <a href="javascript:void(0)" className="gradient-btn v2" onClick={() => this.retiro()}>{cantidad2} TRX</a>
-
-
-              </div>
-              
-            </div>
-            
-          </div>
-
         </div>
 
         <div className="card">
           <div className="row">
 
-            <div className="col-lg-4">
-                <h2>TRX Disponible</h2>
-                <p>{this.state.enPool} TRX</p>
-            </div>
-
-            <div className="col-lg-4">
-                <h2>TRX solicitado</h2>
-                <p>{this.state.solicitado} TRX</p>
-            </div>
-
-            <div className="col-lg-4">
-                <h2>En proceso</h2>
-                <p>{this.state.solicitado-this.state.enPool} TRX</p>
+          <div className="col-lg-12">
+                <h2>Mis Solicitudes pendientes</h2>
             </div>
 
           </div>
@@ -459,10 +457,26 @@ export default class Trading extends Component {
 
           <div className="row">
 
-            <div className="col-lg-12">
-                <h2>Solicitudes</h2>
-                <p>#{this.state.solicitudes}</p>
+            {this.state.misDepositos}
+
+          </div>
+
+        </div>
+
+        <div className="card">
+          <div className="row">
+
+          <div className="col-lg-12">
+                <h2>Solicitudes Globales</h2>
             </div>
+
+          </div>
+
+          <hr  color="white"/>
+
+          <div className="row">
+
+              {this.state.globDepositos}
 
           </div>
 

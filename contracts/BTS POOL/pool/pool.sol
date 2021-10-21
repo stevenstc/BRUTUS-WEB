@@ -268,7 +268,7 @@ contract PoolBRSTv3 is Ownable{
 
   function completarSolicitud(uint256 _index) public payable returns (bool){
 
-    address _user = solicitudesEnProgreso[_index];
+    address payable _user = payable(solicitudesEnProgreso[_index]);
     uint _id = solicitudInterna[_index];
     Usuario storage usuario = usuarios[_user];
 
@@ -276,7 +276,9 @@ contract PoolBRSTv3 is Ownable{
 
     if(msg.sender != _user){
       if(msg.value != usuario.trxx[_id])revert();
-      payable(_user).transfer(usuario.trxx[_id]);
+      _user.transfer(usuario.trxx[_id]);
+    }else{
+      _user.transfer(msg.value);
     }
 
     BRTS_Contract.transfer(msg.sender, usuario.brst[_id]);
