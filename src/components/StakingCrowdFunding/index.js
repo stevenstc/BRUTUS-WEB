@@ -144,13 +144,14 @@ export default class Trading extends Component {
     console.log(deposito);
 
     var misDepositos = [];
+    var id;
     
     for (let index = 0; index < deposito.brst.length; index++) {
       if (!deposito.completado[index]) {
-        var id = parseInt(deposito.id[index]._hex);
+        id = parseInt(deposito.id[index]._hex);
         misDepositos.push(<div className="col-lg-12" key={"mis-"+id}>
           <p># {id} | {parseInt(deposito.brst[index]._hex)/10**6} BRST -&gt; {parseInt(deposito.trxx[index]._hex)/10**6} TRX  {" "}
-          <button type="button" className="btn btn-warning" onClick={() => this.completarSolicitud(id, 0)}>Cancelar</button></p>
+          <button type="button" className="btn btn-warning" onClick={() => this.completarSolicitud(parseInt(deposito.id[index]._hex), 0)}>Cancelar</button></p>
           <hr></hr>
         </div>)
       }
@@ -169,7 +170,10 @@ export default class Trading extends Component {
 
       globDepositos[index] = (<div className="col-lg-12" key={"glob"+parseInt(deposits[index]._hex)}>
           <p># {parseInt(deposits[index]._hex)} | {parseInt(pen[3]._hex)/10**6} BRST -&gt; {parseInt(pen[2]._hex)/10**6} TRX  {" "}
-          <button type="button" className="btn btn-prymary" onClick={() => this.completarSolicitud(parseInt(deposits[index]._hex),parseInt(pen[2]._hex))}>Completar</button></p>
+          <button type="button" className="btn btn-prymary" onClick={async() => {
+            var local = await Utils.contract.verSolicitudPendiente(parseInt(deposits[index]._hex)).call();
+            this.completarSolicitud(parseInt(deposits[index]._hex),parseInt(local[2]._hex));
+            }}>Completar</button></p>
           <hr></hr>
         </div>)
       
@@ -343,26 +347,6 @@ export default class Trading extends Component {
 
     minCompra = "Min. "+minCompra+" TRX";
     minventa = "Min. "+minventa+" BRST";
-
-    var cantidad2 = this.state.cantidad;
-
-    var tiempo = this.state.tiempo;
-
-    if(Date.now() < tiempo){
-      cantidad2 = 0;
-    }
-
-    if (tiempo-this.state.espera === 0) {
-      tiempo = "## ## ####";
-      
-    }else{
-      tiempo = new Date(tiempo);
-      tiempo = tiempo+"";
-
-    }
-
-    
-
 
     return (
 
