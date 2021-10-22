@@ -104,7 +104,7 @@ export default class Trading extends Component {
     var balanceUSDT = aprovadoUSDT;
 
     if (aprovadoUSDT > 0) {
-      aprovadoUSDT = "Staking "; 
+      aprovadoUSDT = "Comprar "; 
     }else{
       aprovadoUSDT = "Necesitas TRX para hacer Staking"; 
       this.setState({
@@ -115,6 +115,9 @@ export default class Trading extends Component {
     var tronBRUT = await window.tronWeb;
     var contractBRUT = await tronBRUT.contract().at(cons.BRST);
 
+    var MIN_DEPOSIT = await Utils.contract.MIN_DEPOSIT().call();
+    MIN_DEPOSIT = parseInt(MIN_DEPOSIT._hex)/10**6;
+
     var aprovadoBRUT = await contractBRUT.allowance(accountAddress,contractAddress).call();
     aprovadoBRUT = parseInt(aprovadoBRUT._hex);
 
@@ -122,7 +125,7 @@ export default class Trading extends Component {
     balanceBRUT = parseInt(balanceBRUT._hex)/10**6;
 
     if (aprovadoBRUT > 0) {
-      aprovadoBRUT = "Solicitar ";
+      aprovadoBRUT = "Vender ";
     }else{
       aprovadoBRUT = "Aprobar intercambio";
       this.setState({
@@ -182,6 +185,7 @@ export default class Trading extends Component {
 
     //console.log(tokensEmitidos);
     this.setState({
+      minCompra: MIN_DEPOSIT,
       globDepositos: globDepositos,
       misDepositos: misDepositos,
       depositoUSDT: aprovadoUSDT,
@@ -284,8 +288,8 @@ export default class Trading extends Component {
           //window.alert("Estamos actualizando a la version 3 del contrato de liquidez por favor contacta atravez de telegram para intercambiar tus BRST por TRX, estamos mejorando nustro sistema ;)");
 
         }else{
-          window.alert("Please enter an amount greater than 10 USDT");
-          document.getElementById("amountBRUT").value = 10;
+          window.alert(`ingrese un valor mayor a ${minventa} BRST`);
+          document.getElementById("amountBRUT").value = minventa;
         }
 
 
@@ -392,7 +396,7 @@ export default class Trading extends Component {
             
               
               <h5 >
-                <strong>Staking</strong><br />
+                <strong>Hacer Staking</strong><br />
               </h5>
 
               <hr color="white"/>
@@ -403,9 +407,9 @@ export default class Trading extends Component {
 
               <div className="form-group">
                 <input type="number" className="form-control mb-20 text-center" id="amountUSDT"  onChange={this.handleChangeUSDT} placeholder={minCompra} min={this.state.minCompra} max={this.state.balanceUSDT}></input>
-                <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
+                <p className="card-text">recomendamos tener ~ 50 TRX para hacer la transacción</p>
 
-                <a href="javascript:void(0)" className="gradient-btn v2" onClick={() => this.compra()}>{this.state.depositoUSDT} {} {(this.state.valueUSDT/this.state.precioBRUT).toFixed(6)} BRST</a>
+                <button className="btn btn-success" onClick={() => this.compra()}>{this.state.depositoUSDT} {" "} {(this.state.valueUSDT/this.state.precioBRUT).toFixed(6)} BRST</button>
 
               </div>
               
@@ -420,7 +424,7 @@ export default class Trading extends Component {
             
               
               <h5 >
-                <strong>Solicitar Retiro</strong><br />
+                <strong>Deshacer Staking</strong><br />
               </h5>
 
               <hr color="white"/>
@@ -431,9 +435,9 @@ export default class Trading extends Component {
 
               <div className="form-group">
                 <input type="number" className="form-control mb-20 text-center" id="amountBRUT"  onChange={this.handleChangeBRUT} placeholder={minventa} min={this.state.minventa} max={this.state.balanceBRUT}></input>
-                <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
+                <p className="card-text">recomendamos tener ~ 50 TRX para hacer la transacción</p>
 
-                <a href="javascript:void(0)" className="gradient-btn v2" onClick={() => this.venta()}>{this.state.depositoBRUT} {(this.state.precioBRUT*this.state.valueBRUT).toFixed(6)} TRX</a>
+                <button className="btn btn-danger" onClick={() => this.venta()}>{this.state.depositoBRUT} {(this.state.precioBRUT*this.state.valueBRUT).toFixed(6)} TRX</button>
 
 
               </div>
@@ -448,7 +452,7 @@ export default class Trading extends Component {
           <div className="row">
 
           <div className="col-lg-12">
-                <h2>Mis Solicitudes pendientes</h2>
+                <h2><i class="fa fa-user-circle" aria-hidden="true"></i> Mis Solicitudes pendientes</h2>
             </div>
 
           </div>
@@ -467,7 +471,7 @@ export default class Trading extends Component {
           <div className="row">
 
           <div className="col-lg-12">
-                <h2>Solicitudes Globales</h2>
+                <h2><i class="fa fa-globe" aria-hidden="true"></i> Solicitudes Globales</h2>
             </div>
 
           </div>
