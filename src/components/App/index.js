@@ -145,8 +145,10 @@ class App extends Component {
         );
       
 
-    
-      default:  
+      case "brut":
+      case "BRUT":
+      case "token":
+      case "TOKEN":
         if (!this.state.tronWeb.installed) return (
           <>
             <HomeBaner/>
@@ -171,6 +173,12 @@ class App extends Component {
             <Home />
           </>
         );
+
+    
+      default:  
+
+        return (<></>);
+       
     
         
       
