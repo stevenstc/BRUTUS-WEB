@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TronWeb from "tronweb";
 
 import Utils from "../../utils";
+import Inicio from "../Inicio";
 import HomeBaner from "../HomeBaner";
 import Home from "../Home";
 import StakingBaner from "../StakingBaner";
@@ -177,7 +178,7 @@ class App extends Component {
     
       default:  
 
-        return (<></>);
+        return (<><Inicio /></>);
        
     
         

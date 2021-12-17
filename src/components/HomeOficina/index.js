@@ -86,7 +86,7 @@ export default class Oficina extends Component {
       <div className=" container text-center">
         <div className="row">
           
-          <div className="col-lg-12 p-2">
+          <div className="col-lg-8 p-2">
             <div className="card">
             <br /><br />
               
@@ -98,12 +98,30 @@ export default class Oficina extends Component {
               <h6 className="p-3">
                 Brutus Token: <strong>{this.state.balanceBRUT}</strong> (BRUT) <br />
               
-                Valor: <strong>{(this.state.balanceBRUT*this.state.precioBRUT)}</strong> (USDT)
+                Valor: <strong>{(this.state.balanceBRUT*this.state.precioBRUT).toFixed(6)}</strong> (USDT)
               </h6>
 
               
             </div>
             
+          </div>
+
+          <div className="col-lg-4 p-3">
+            <div className="card">
+            <br /><br />
+            
+              
+            <h6 >
+              <strong>Precio actual Brutus (BRUT)</strong><br />
+            </h6>
+            <hr />
+            <h2>
+              <strong>{this.state.precioBRUT}</strong> <br />
+              (USDT)
+            </h2>
+
+            </div>
+              
           </div>
 
           
@@ -111,68 +129,40 @@ export default class Oficina extends Component {
 
         <div className="row">
 
-        <div className="col-lg-3 p-3">
-            <div className="card">
-            <br /><br />
-            
-              
-              <h6 >
-                <strong>Precio actual Brutus (BRUT)</strong><br />
-              </h6>
-
-
-              <h2>
-                <strong>{this.state.precioBRUT}</strong> <br />
-                (USDT)
-              </h2>
-
-            </div>
-              
-          </div>
-
-
-          <div className="col-lg-3 p-3">
+          <div className="col-lg-4 p-3">
             <div className="card">
             <br /><br />
               
               
               <h6 >
-                <strong>Promedio de Compra</strong><br />
+                <strong>Precio Promedio de Compra</strong><br />
               </h6>
-              <p>
-                Cantidad: <strong>{this.state.tokenCompra}</strong> (BRUT)<br /><br />
-                Precio: <strong>{(this.state.usdCompra/this.state.tokenCompra)}</strong> (USDT)
-              </p>
               <hr />
-              <p>
-                Total: <strong>{(this.state.usdCompra*1).toFixed(2)}</strong> (USDT)
-              </p>
+              <h5>
+                <strong>{(this.state.usdCompra/this.state.tokenCompra).toFixed(6)}</strong> (USDT)
+              </h5>
 
             </div>
               
           </div>
 
-          <div className="col-lg-3 p-3">
+          <div className="col-lg-4 p-3">
             <div className="card">
             <br /><br />
               
               <h6 >
-                <strong>Promedio de venta</strong><br />
+                <strong>Precio Promedio de venta</strong><br />
               </h6>
-              <p>
-                Cantidad: <strong>{this.state.tokenVenta}</strong> (BRUT)<br /><br />
-                Precio: <strong>{this.state.usdVenta/this.state.tokenVenta}</strong> (USDT)
-              </p>
               <hr />
-              <p>
-                Total: <strong>{(this.state.usdVenta*1).toFixed(2)}</strong> (USDT)
-              </p>
+              <h5>
+                Precio: <strong>{(this.state.usdVenta/this.state.tokenVenta).toFixed(6)}</strong> (USDT)
+              </h5>
 
             </div>
               
           </div>
 
-          <div className="col-lg-3 p-3">
+          <div className="col-lg-4 p-3">
             <div className="card">
             
             <br /><br />
