@@ -114,7 +114,7 @@ export default class Inicio extends Component {
                     <div className="col-12 col-md-6 col-lg-4">
                         <div className="single-team">
                             <div className="single-team-img">
-                                <a href="/?token"><img src="assets/img/vicente.jpg" alt="vicente nires" /></a>
+                                <a href="/?token"><img src="assets/img/brut.png" alt="brut" /></a>
                             </div>
                             <div className="space-30"></div>
                             <div className="single-team-content">
@@ -128,7 +128,7 @@ export default class Inicio extends Component {
                     <div className="col-12 col-md-6 col-lg-4">
                         <div className="single-team">
                             <div className="single-team-img">
-                              <a href="/?staking"><img src="assets/img/manuel.jpg" alt="manuel montijano" /></a>
+                              <a href="/?staking"><img src="assets/img/brst.png" alt="brst" /></a>
                             </div>
                             <div className="space-30"></div>
                             <div className="single-team-content">
@@ -143,13 +143,13 @@ export default class Inicio extends Component {
                     <div className="col-12 col-md-6 col-lg-4">
                         <div className="single-team">
                             <div className="single-team-img">
-                              <a href="https://mintearte.tk/"><img src="assets/img/steven.jpg" alt="Steven cabrera TRON" /></a>
+                              <a href="/?brgy"><img src="assets/img/brgy.png" alt="brgy" /></a>
                             </div>
                             <div className="space-30"></div>
                             <div className="single-team-content">
-                                <h3>MTA</h3>
+                                <h3>BRGY</h3>
                                 <div className="space-10"></div>
-                                <h6>Mintearte</h6>
+                                <h6>Brutus Gallery - NFT</h6>
                             </div>
                             <div className="space-10"></div>
                         </div>

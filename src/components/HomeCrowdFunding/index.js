@@ -277,10 +277,11 @@ export default class Trading extends Component {
 
               <div className="form-group">
                 <input type="number" className="form-control mb-20 text-center" id="amountUSDT" value={this.state.valueUSDT} onChange={this.handleChangeUSDT} placeholder={minCompra}></input>
-                <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
-
-                <button className="btn btn-success" style={{"wordBreak":"break-all"}} onClick={() => this.compra()}>{this.state.depositoUSDT} {} {(this.state.valueUSDT/this.state.precioBRUT).toFixed(8)} BRUT</button>
-
+                <p className="card-text">
+                  debes tener ~ 50 TRX para hacer la transacción
+                  <br></br>
+                  <button className="btn btn-success" onClick={() => this.compra()}>{this.state.depositoUSDT }<br></br>{ (this.state.valueUSDT/this.state.precioBRUT).toFixed(8) + "BRUT"}</button>
+                </p>
               </div>
               
             </div>
@@ -305,7 +306,7 @@ export default class Trading extends Component {
                 <input type="number" className="form-control mb-20 text-center" id="amountBRUT" value={this.state.valueBRUT} onChange={this.handleChangeBRUT} placeholder={minventa}></input>
                 <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
 
-                <button className="btn btn-danger" style={{"wordBreak":"break-all"}} onClick={() => this.venta()}>{this.state.depositoBRUT} {(this.state.precioBRUT*this.state.valueBRUT).toFixed(6)} USDT</button>
+                <button className="btn btn-danger" style={{"wordBreak":"break-all"}} onClick={() => this.venta()}>{this.state.depositoBRUT} <br></br> {(this.state.precioBRUT*this.state.valueBRUT).toFixed(6)} USDT</button>
 
 
               </div>

@@ -7,6 +7,8 @@ import HomeBaner from "../HomeBaner";
 import Home from "../Home";
 import StakingBaner from "../StakingBaner";
 import Staking from "../Staking";
+import NftBaner from "../nftBaner";
+import Nft from "../nft";
 import TronLinkGuide from "../TronLinkGuide";
 
 
@@ -174,6 +176,35 @@ class App extends Component {
             <Home />
           </>
         );
+
+      case "brgy":
+      case "BRGY":
+      case "nft":
+      case "NFT":
+          if (!this.state.tronWeb.installed) return (
+            <>
+              <NftBaner/>
+              <div className="container">
+                <TronLinkGuide />
+              </div>
+            </>
+            );
+      
+          if (!this.state.tronWeb.loggedIn) return (
+            <>
+              <NftBaner/>
+              <div className="container">
+                <TronLinkGuide installed />
+              </div>
+            </>
+            );
+      
+          return (
+            <>
+              <NftBaner/>
+              <Nft />
+            </>
+          );
 
     
       default:  
