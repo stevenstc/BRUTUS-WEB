@@ -133,13 +133,15 @@ contract RandomNumber{
 
 contract misteryBox is RandomNumber, dinamicArray, Ownable{
 
-    uint256[] public idTokens = [1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+    uint256[] public idTokens = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
 
-    address public ownerNFTs = 0x55d398326f99059fF775485246999027B3197955;
+    mapping (address => uint256[]) public entregaNFT;
 
-    address public tokenTRC721 = 0x55d398326f99059fF775485246999027B3197955;
+    address public ownerNFTs = 0x55A8d57DFBBCEEBA1C3F39C7953c856c1fCe66A9;
 
-    address public tokenTRC20 = 0x55d398326f99059fF775485246999027B3197955;
+    address public tokenTRC721 = 0x4B1e5bf29f614f9582b111823D0c106CDa0511AA;
+
+    address public tokenTRC20 = 0x3Dfe637B2b9aE4190A458B5F3EfC1969afE27819;
 
     uint256 public precio = 10000000 * 10**6;
 
@@ -148,32 +150,41 @@ contract misteryBox is RandomNumber, dinamicArray, Ownable{
     ITRC20 TRC20_Contract = ITRC20(tokenTRC20);
 
     function buyMisteryBox() public returns(uint256){
-        if( TRC20_Contract.allowance(msg.sender, address(this)) < precio)revert();
-        if( !TRC20_Contract.transferFrom(msg.sender, address(this), precio))revert();
+        if(idTokens.length == 0)revert("no hay tokens para entregar");
+        if( TRC20_Contract.allowance(msg.sender, address(this)) < precio)revert("saldo aprobado insuficiente");
+        if( !TRC20_Contract.transferFrom(msg.sender, address(this), precio))revert("transferencia inconclusa");
 
-         uint256 myNumber = randMod(idTokens.length, precio);
+        uint256 myNumber = randMod(idTokens.length, precio);
 
         uint256 myNFT = idTokens[myNumber];
-
         idTokens[myNumber] = 0;
-
-        TRC721_Contract.transferFrom(ownerNFTs, msg.sender, myNFT);
-
         idTokens = borrarArrayNumber(idTokens);
 
         doneRandom();
+
+        entregaNFT[msg.sender].push(myNFT);
 
         return myNFT;
 
     }
 
-    function update_idTokens(uint256[] memory _idTokens) public onlyOwner returns(bool){
-        idTokens = _idTokens;
-        return true;
+    function claimNFT() public returns(uint256){
+        for (uint256 index = 0; index < entregaNFT[msg.sender].length; index++) {
+            TRC721_Contract.transferFrom(ownerNFTs, msg.sender, entregaNFT[msg.sender][index] );
+        }
+        
+        return entregaNFT[msg.sender].length;
     }
 
-    function update_precio(uint256 _precio) public onlyOwner returns(bool){
-        precio = _precio;
+    function claimNFT_especifico(uint256 _index) public returns(uint256){
+
+        TRC721_Contract.transferFrom(ownerNFTs, msg.sender, entregaNFT[msg.sender][_index] );
+        
+        return entregaNFT[msg.sender][_index];
+    }
+
+    function update_ownerNFTs(address _ownerNFTs) public onlyOwner returns(bool){
+        ownerNFTs = _ownerNFTs;
         return true;
     }
 
@@ -187,6 +198,24 @@ contract misteryBox is RandomNumber, dinamicArray, Ownable{
         tokenTRC20 = _tokenTRC20;
         TRC20_Contract = ITRC20(_tokenTRC20);
         return true;
+    }
+
+    function update_idTokens(uint256[] memory _idTokens) public onlyOwner returns(bool){
+        idTokens = _idTokens;
+        return true;
+    }
+
+    function update_precio(uint256 _precio) public onlyOwner returns(bool){
+        precio = _precio;
+        return true;
+    }
+
+    function retirar_TRC20_ALL()public onlyOwner returns(bool){
+        return TRC20_Contract.transfer(msg.sender, TRC20_Contract.balanceOf(address(this)));
+    }
+
+    function retirar_TRC20(uint256 _cantidad)public onlyOwner returns(bool){
+        return TRC20_Contract.transfer(msg.sender, _cantidad);
     }
 
 }

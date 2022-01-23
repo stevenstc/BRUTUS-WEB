@@ -14,4 +14,8 @@ const SC2 = "TMzxRLeBwfhm8miqm5v2qPw3P8rVZUa3x6";// direccion del contrato N°2 
 
 const BRST = "TF8YgHqnJdWzCbUyouje3RYrdDKJYpGfB3";//TF8YgHqnJdWzCbUyouje3RYrdDKJYpGfB3 contract for token trc20 BRST
 
-export default {proxy, PRU, WS,  SC, USDT, PRICE, BRUT, SC2, BRST};
+const SC3 = "TV2oWfCNLtLDxu1AGJ2D4QJhdWagJN5Xqk";//contrato Mixtery box nft
+
+const APENFT = "TFczxzPhnThNSqr5by8tvxsdCFRRz6cPNq";//contrato de moneda de venta de mixtery box
+
+export default {proxy, PRU, WS,  SC, USDT, PRICE, BRUT, SC2, BRST, SC3, APENFT};
