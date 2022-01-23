@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Utils from "../../utils";
 
 import cons from "../../cons.js";
 
@@ -12,12 +11,37 @@ export default class nftCrowdFunding extends Component {
     this.state = {
 
 
+      MB: "Cargando..."
     };
 
     this.compra = this.compra.bind(this);
+    this.misterio = this.misterio.bind(this);
     
   }
 
+  async componentDidMount() {
+    this.misterio();
+  }
+
+  async misterio() {
+    var accountAddress =  await window.tronWeb.trx.getAccount();
+    accountAddress = window.tronWeb.address.fromHex(accountAddress.address);
+    var contractMistery = await window.tronWeb.contract().at(cons.SC3);
+
+    var mb = 0;
+
+    for (let index = 0; index < 25; index++) {
+      mb += await contractMistery.entregaNFT(accountAddress, index).call()
+      .catch(()=> {return 0;})
+      
+    }
+
+
+    this.setState({
+      MB: mb
+    })
+
+  }
 
 
   async compra() {
@@ -50,6 +74,8 @@ export default class nftCrowdFunding extends Component {
 
     }
 
+    this.misterio();
+
   };
 
   render() {
@@ -64,11 +90,21 @@ export default class nftCrowdFunding extends Component {
           <div className="row">
 
             <div className="col-lg-12">
-              <img src="assets/img/MISTERY2.gif" />
+              <img 
+                src="assets/img/MISTERY2.gif" 
+                alt="mistery box brutus"
+              />
                 <h2>Mistery box</h2>
                 <p>10'000.000 APENFT</p>
-                <button className="btn btn-success" style={{"wordBreak":"break-all"}} onClick={() => this.compra()}>Buy Mistery Box</button>
+                <button className="btn btn-success" style={{"cursor":"pointer"}} onClick={() => this.compra()}>Buy Mistery Box</button>
 
+                <br></br><br></br>
+
+                Mistery Box compradas: {this.state.MB}
+
+                <br></br>
+
+                <button className="btn btn-warning" style={{"cursor":"pointer"}} onClick={() => { window.alert("por favor espera a la fecha anunciada para reclamar tu NFT")}}>Abrir {} Mistery Box</button>
             </div>
 
           </div>
