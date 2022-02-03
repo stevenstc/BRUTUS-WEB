@@ -16,6 +16,7 @@ export default class nftCrowdFunding extends Component {
 
     this.compra = this.compra.bind(this);
     this.misterio = this.misterio.bind(this);
+
     
   }
 
@@ -104,7 +105,22 @@ export default class nftCrowdFunding extends Component {
 
                 <br></br>
 
-                <button className="btn btn-warning" style={{"cursor":"pointer"}} onClick={() => { window.alert("por favor espera a la fecha anunciada para reclamar tu NFT")}}>Abrir {} Mistery Box</button>
+                <button className="btn btn-warning" style={{"cursor":"pointer"}} onClick={async() => { 
+
+                  if(true){
+
+                    window.alert("por favor espera a la fecha anunciada para reclamar tu NFT")
+
+                  }else{
+                    var contractMistery = await window.tronWeb.contract().at(cons.SC3);
+
+                    contractMistery.claimNFT().send()
+                    .then(window.alert("NFT's enviados a tu wallet"))
+                    .catch(window.alert("Error al reclamar"))
+                    
+                  }
+                  
+                  }}>Abrir {this.state.MB} Mistery Box</button>
             </div>
 
           </div>
