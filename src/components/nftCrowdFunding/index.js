@@ -21,7 +21,10 @@ export default class nftCrowdFunding extends Component {
   }
 
   async componentDidMount() {
-    this.misterio();
+
+    setInterval(()=>{
+      this.misterio();
+    }, 7*1000)
   }
 
   async misterio() {
@@ -32,8 +35,18 @@ export default class nftCrowdFunding extends Component {
     var mb = 0;
 
     for (let index = 0; index < 25; index++) {
-      mb += await contractMistery.entregaNFT(accountAddress, index).call()
-      .catch(()=> {return 0;})
+      var conteo = await contractMistery.entregaNFT(accountAddress, index).call()
+      .then((conteo)=>{
+        if(conteo._hex){
+          console.log(parseInt(conteo._hex));
+          return 1;
+        }else{
+          return 0;
+        }
+      })
+      .catch(()=>{return 0;})
+
+      mb += conteo;
       
     }
 

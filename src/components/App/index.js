@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import TronWeb from "tronweb";
 
-import Utils from "../../utils";
 import Inicio from "../Inicio";
 import HomeBaner from "../HomeBaner";
 import Home from "../Home";
@@ -12,97 +10,75 @@ import Nft from "../nft";
 import TronLinkGuide from "../TronLinkGuide";
 
 
-const FOUNDATION_ADDRESS = "TWiWt5SEDzaEqS6kE5gandWMNfxR2B5xzg";
-
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      
       tronWeb: {
+        address: "Cargando...",
         installed: false,
-        loggedIn: false
+        loggedIn: false,
+        web3: null
       }
     };
+
+    this.conectar = this.conectar.bind(this);
   }
 
   async componentDidMount() {
-    await new Promise(resolve => {
-      const tronWebState = {
-        installed: !!window.tronWeb,
-        loggedIn: window.tronWeb && window.tronWeb.ready
-      };
+    
+    setInterval(async() => {
+      await this.conectar();
+    }, 7*1000);
+      
+  }
 
-      if (tronWebState.installed) {
-        this.setState({
-          tronWeb: tronWebState
-        });
+  async conectar(){
 
-        return resolve();
-      }
+    if (typeof window.tronLink !== 'undefined' && typeof window.tronWeb !== 'undefined' ) { 
 
-      let tries = 0;
+      var tronWeb = this.state.tronWeb;
 
-      const timer = setInterval(() => {
-        if (tries >= 10) {
+      tronWeb['installed'] = true;
+      tronWeb['web3'] = window.tronWeb;
 
-          const TRONGRID_API = "https://api.trongrid.io";
+      this.setState({
 
-          window.tronWeb = new TronWeb(
-            TRONGRID_API,
-            TRONGRID_API,
-            TRONGRID_API
-          );
+        tronWeb: tronWeb
+    
+      });
+
+      window.tronLink.request({method: 'tron_requestAccounts'})
+        .then(()=>{
+
+          tronWeb['installed'] = true;
+          tronWeb['loggedIn'] = true;
+        
+          this.setState({
+
+            tronWeb: tronWeb
+        
+          });
+        })
+        .catch(()=>{
+
+          tronWeb['installed'] = false;
+          tronWeb['loggedIn'] = false;
 
           this.setState({
-            tronWeb: {
-              installed: false,
-              loggedIn: false
-            }
+
+            tronWeb: tronWeb
+        
           });
-          clearInterval(timer);
-          return resolve();
-        }
 
-        tronWebState.installed = !!window.tronWeb;
-        tronWebState.loggedIn = window.tronWeb && window.tronWeb.ready;
+        })
 
-        if (!tronWebState.installed) {
-          return tries++;
-        }
 
-        this.setState({
-          tronWeb: tronWebState
-        });
 
-        resolve();
-      }, 100);
-    });
-
-    if (!this.state.tronWeb.loggedIn) {
-      // Set default address (foundation address) used for contract calls
-      // Directly overwrites the address object if TronLink disabled the
-      // function call
-      window.tronWeb.defaultAddress = {
-        hex: window.tronWeb.address.toHex(FOUNDATION_ADDRESS),
-        base58: FOUNDATION_ADDRESS
-      };
-
-      window.tronWeb.on("addressChange", () => {
-        if (this.state.tronWeb.loggedIn) {
-          return;
-        }
-
-        this.setState({
-          tronWeb: {
-            installed: true,
-            loggedIn: true
-          }
-        });
-      });
+      
     }
-
-    Utils.setTronWeb(window.tronWeb);
   }
 
   render() {
@@ -210,9 +186,6 @@ class App extends Component {
       default:  
 
         return (<><Inicio /></>);
-       
-    
-        
       
     }
 
