@@ -80,11 +80,9 @@ export default class nftCrowdFunding extends Component {
 
     }else{
 
+      await contractAPENFT.approve(contractAddress, "115792089237316195423570985008687907853269984665640564039457584007913129639935").send();
+      
       window.alert("por favor aprueba el balance para poder comprar la mistery Box");
-
-      if (aprovado <= 0) {
-        await contractAPENFT.approve(contractAddress, "115792089237316195423570985008687907853269984665640564039457584007913129639935").send();
-      }
 
     }
 
@@ -105,6 +103,7 @@ export default class nftCrowdFunding extends Component {
 
             <div className="col-lg-12">
               <img 
+                className="img-fluid"
                 src="assets/img/MISTERY2.gif" 
                 alt="mistery box brutus"
               />
