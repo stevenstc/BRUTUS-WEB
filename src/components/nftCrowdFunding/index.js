@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import cons from "../../cons.js";
 
 const contractAddress = cons.SC3;
@@ -68,14 +67,20 @@ export default class nftCrowdFunding extends Component {
     var contractAPENFT = await window.tronWeb.contract().at(cons.APENFT);
 
     var aprovado = await contractAPENFT.allowance(accountAddress,contractAddress).call();
+
+    if(aprovado.remaining){
+      aprovado = aprovado.remaining;
+    }
+    
     aprovado = parseInt(aprovado._hex);
-    aprovado = aprovado/10**6
+    aprovado = aprovado/10**6;
+
 
     if ( aprovado > 0 ){
 
-          await contractMistery.buyMisteryBox().send();
+      await contractMistery.buyMisteryBox().send();
 
-          window.alert("Mistery box comprada");
+      window.alert("Mistery box comprada");
 
 
     }else{

@@ -132,7 +132,7 @@ class App extends Component {
           <>
             <HomeBaner/>
             <div className="container">
-              <TronLinkGuide />
+              <TronLinkGuide url={"/?"+getString}/>
             </div>
           </>
           );
@@ -141,14 +141,14 @@ class App extends Component {
           <>
             <HomeBaner/>
             <div className="container">
-              <TronLinkGuide installed />
+              <TronLinkGuide installed url={"/?"+getString}/>
             </div>
           </>
           );
     
         return (
           <>
-            <HomeBaner/>
+            <HomeBaner getString={getString}/>
             <Home />
           </>
         );
@@ -161,7 +161,7 @@ class App extends Component {
             <>
               <NftBaner/>
               <div className="container">
-                <TronLinkGuide />
+                <TronLinkGuide url={"/?"+getString}/>
               </div>
             </>
             );
@@ -170,14 +170,14 @@ class App extends Component {
             <>
               <NftBaner/>
               <div className="container">
-                <TronLinkGuide installed />
+                <TronLinkGuide installed url={"/?"+getString}/>
               </div>
             </>
             );
       
           return (
             <>
-              <NftBaner/>
+              <NftBaner getString={getString}/>
               <Nft />
             </>
           );
