@@ -18,4 +18,7 @@ const SC3 = "TV2oWfCNLtLDxu1AGJ2D4QJhdWagJN5Xqk";//contrato Mixtery box nft
 
 const APENFT = "TFczxzPhnThNSqr5by8tvxsdCFRRz6cPNq";//contrato de moneda de venta de mixtery box
 
-export default {proxy, PRU, WS,  SC, USDT, PRICE, BRUT, SC2, BRST, SC3, APENFT};
+const SC4 = "TGpQ3qap18rN1vMJj3pveMfqTeXDaKaDE7";//contrato Mixtery box nft
+
+
+export default {proxy, PRU, WS,  SC, USDT, PRICE, BRUT, SC2, BRST, SC3, APENFT, SC4};

@@ -18,7 +18,7 @@ export default class nfts extends Component {
                 <div className="row justify-content-center align-items-start">
         
                   <div className="col-lg-12 cols">
-                    <CrowdFunding />
+                    <CrowdFunding accountAddress={this.props.accountAddress} />
                   </div>
         
                 </div>
@@ -35,7 +35,7 @@ export default class nfts extends Component {
                 <div className="row justify-content-center align-items-start">
         
                   <div className="col-lg-12 cols">
-                    <Oficina />
+                    <Oficina accountAddress={this.props.accountAddress} />
                   </div>
         
                 </div>

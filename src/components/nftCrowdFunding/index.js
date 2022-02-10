@@ -27,14 +27,13 @@ export default class nftCrowdFunding extends Component {
   }
 
   async misterio() {
-    var accountAddress =  await window.tronWeb.trx.getAccount();
-    accountAddress = window.tronWeb.address.fromHex(accountAddress.address);
+
     var contractMistery = await window.tronWeb.contract().at(cons.SC3);
 
     var mb = 0;
 
     for (let index = 0; index < 25; index++) {
-      var conteo = await contractMistery.entregaNFT(accountAddress, index).call()
+      var conteo = await contractMistery.entregaNFT(this.props.accountAddress, index).call()
       .then((conteo)=>{
         if(conteo._hex){
           console.log(parseInt(conteo._hex));
@@ -43,8 +42,11 @@ export default class nftCrowdFunding extends Component {
           return 0;
         }
       })
-      .catch(()=>{return 0;})
+      .catch(()=>{ console.log("error:"+index); return 0;})
 
+      if(conteo === 0){
+        break;
+      }
       mb += conteo;
       
     }
@@ -131,9 +133,9 @@ export default class nftCrowdFunding extends Component {
                   }else{
                     var contractMistery = await window.tronWeb.contract().at(cons.SC3);
 
-                    contractMistery.claimNFT().send()
-                    .then(window.alert("NFT's enviados a tu wallet"))
-                    .catch(window.alert("Error al reclamar"))
+                    await contractMistery.claimNFT().send()
+                    .then(()=>{window.alert("NFT's enviados a tu wallet")})
+                    .catch(()=>{window.alert("Error al reclamar")})
                     
                   }
                   

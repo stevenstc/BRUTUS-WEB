@@ -10,7 +10,7 @@ export default class nftOficina extends Component {
 
     this.state = {
       deposito: "Cargando...",
-      wallet: "Cargando...",
+      wallet: this.props.accountAddress,
       balanceBRUT: 0,
       precioBRUT: 0
 
@@ -41,21 +41,66 @@ export default class nftOficina extends Component {
 
   async estado(){
 
-    var accountAddress =  await window.tronWeb.trx.getAccount();
-    accountAddress = window.tronWeb.address.fromHex(accountAddress.address);
+    var contractMistery = await window.tronWeb.contract().at(cons.SC3);
 
-    var tronBRUT = await window.tronWeb;
-    var contractBRUT = await tronBRUT.contract().at(cons.BRST);
+    var robots = [];
 
-    var balanceBRUT = await contractBRUT.balanceOf(accountAddress).call();
-    balanceBRUT = parseInt(balanceBRUT._hex)/10**6;
+    var contractNFT = await window.tronWeb.contract().at(cons.SC4);
 
-    var precioBRUT =  await this.consultarPrecio();
+    var balanceOf = await contractNFT.balanceOf(this.props.accountAddress).call();
+
+    for (let index = 0; index < balanceOf; index++) {
+      var conteo = await contractMistery.entregaNFT(this.props.accountAddress, index).call()
+      .then((conteo)=>{
+        if(conteo._hex){
+          robots.push(parseInt(conteo._hex));
+          return 1;
+        }
+      })
+      .catch(()=>{
+        return 0;
+      })
+
+      if(conteo === 0){
+        break;
+      }
+      
+    }
+
+    for (let index = 0; index < robots.length; index++) {
+
+      var URI = await contractNFT.tokenURI(robots[index]).call()
+
+      var metadata = JSON.parse( await (await fetch(URI)).text());
+      metadata.numero = robots[index]
+
+      robots[index] = metadata;
+
+    }
+
+    var imagerobots = [];
+
+    for (let index = 0; index < robots.length; index++) {
+      imagerobots[index] =(
+        <div className="col-lg-3 p-2" key={"robbrutN"+index}>
+          <div className="card">
+            <br /><br />
+            
+            <h5 >
+              <strong>#{robots[index].numero} {robots[index].name}</strong><br /><br />
+            </h5>
+            <img src={robots[index].image} alt={robots[index].name} className="img-thumbnail"></img>
+
+            
+          </div>
+          
+        </div>
+      )
+    }
 
     this.setState({
-      wallet: accountAddress,
-      precioBRUT: precioBRUT,
-      balanceBRUT: balanceBRUT
+      robots: robots,
+      imagerobots: imagerobots
     });
 
   }
@@ -73,13 +118,19 @@ export default class nftOficina extends Component {
               
               <h5 >
               wallet:<br />
-                <strong>{this.state.wallet}</strong><br /><br />
+                <strong>{this.props.accountAddress}</strong><br /><br />
               </h5>
 
               
             </div>
             
           </div>
+
+        </div>
+
+        <div className="row">
+          
+         {this.state.imagerobots}
 
         </div>
 

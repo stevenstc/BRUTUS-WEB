@@ -55,6 +55,17 @@ class App extends Component {
 
           tronWeb['installed'] = true;
           tronWeb['loggedIn'] = true;
+
+         window.tronWeb.trx.getAccount()
+         .then((account)=>{
+
+          this.setState({
+
+            accountAddress: window.tronWeb.address.fromHex(account.address)
+        
+          });
+
+         })
         
           this.setState({
 
@@ -178,7 +189,7 @@ class App extends Component {
           return (
             <>
               <NftBaner getString={getString}/>
-              <Nft />
+              <Nft accountAddress={this.state.accountAddress} />
             </>
           );
 
