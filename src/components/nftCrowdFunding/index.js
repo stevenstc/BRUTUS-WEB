@@ -124,7 +124,7 @@ export default class nftCrowdFunding extends Component {
 
                 <button className="btn btn-warning" style={{"cursor":"pointer"}} onClick={async() => { 
 
-                  if(true){
+                  if(false){
 
                     window.alert("por favor espera a la fecha anunciada para reclamar tu NFT")
 
