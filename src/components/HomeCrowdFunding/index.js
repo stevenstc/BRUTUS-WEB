@@ -76,7 +76,12 @@ export default class Trading extends Component {
     var contractUSDT = await tronUSDT.contract().at(cons.USDT);
 
     var aprovadoUSDT = await contractUSDT.allowance(accountAddress,contractAddress).call();
-    aprovadoUSDT = parseInt(aprovadoUSDT.remaining._hex);
+    if(aprovadoUSDT.remaining){
+      aprovadoUSDT = parseInt(aprovadoUSDT.remaining._hex);
+    }else{
+      aprovadoUSDT = parseInt(aprovadoUSDT._hex);
+    }
+    
 
     var balanceUSDT = await contractUSDT.balanceOf(accountAddress).call();
     balanceUSDT = parseInt(balanceUSDT._hex)/10**6;
@@ -94,7 +99,11 @@ export default class Trading extends Component {
     var contractBRUT = await tronBRUT.contract().at(cons.BRUT);
 
     var aprovadoBRUT = await contractBRUT.allowance(accountAddress,contractAddress).call();
-    aprovadoBRUT = parseInt(aprovadoBRUT.remaining._hex);
+    if(aprovadoBRUT.remaining){
+      aprovadoBRUT = parseInt(aprovadoBRUT.remaining._hex);
+    }else{
+      aprovadoBRUT = parseInt(aprovadoBRUT._hex);
+    }
 
     var balanceBRUT = await contractBRUT.balanceOf(accountAddress).call();
     balanceBRUT = parseInt(balanceBRUT._hex)/10**6;
@@ -139,7 +148,11 @@ export default class Trading extends Component {
     var contractUSDT = await tronUSDT.contract().at(cons.USDT);
 
     var aprovado = await contractUSDT.allowance(accountAddress,contractAddress).call();
-    aprovado = parseInt(aprovado.remaining._hex);
+    if(aprovado.remaining){
+      aprovado = parseInt(aprovado.remaining._hex);
+    }else{
+      aprovado = parseInt(aprovado._hex);
+    }
 
     if ( aprovado >= amount ){
 
@@ -201,7 +214,11 @@ export default class Trading extends Component {
     var contractBRUT = await tronBRUT.contract().at(cons.BRUT);
 
     var aprovado = await contractBRUT.allowance(accountAddress,contractAddress).call();
-    aprovado = parseInt(aprovado.remaining._hex);
+    if(aprovado.remaining){
+      aprovado = parseInt(aprovado.remaining._hex);
+    }else{
+      aprovado = parseInt(aprovado._hex);
+    }
 
     if ( aprovado >= amount ){
 
