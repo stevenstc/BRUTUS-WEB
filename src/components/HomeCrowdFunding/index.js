@@ -16,7 +16,10 @@ export default class Trading extends Component {
       wallet: "Cargando...",
       valueBRUT: "",
       valueUSDT: "",
-      value: ""
+      value: "",
+      balanceBRUT: 0,
+      balanceUSDT: 0 
+
 
     };
 

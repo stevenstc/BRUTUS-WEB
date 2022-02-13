@@ -41,10 +41,10 @@ export default class Oficina extends Component {
       return this.state.precioBRUT;
     }
 
-    console.log(this.state.precioBRUT);
+    //console.log(this.state.precioBRUT);
 
     const json = await response.json();
-    console.log(json);
+    //console.log(json);
     return json.Data.precio;
 
   };
