@@ -7,6 +7,23 @@ export default class Inicio extends Component {
 
       return (
         <>
+
+<div className="welcome-area wow fadeInUp" id="home">
+              <div id="particles-js"></div>
+              <div className="container align-self-center">
+                  <div className="row align-self-center">
+                      <div className="col-12 col-md-6 align-self-center">
+                        <div className="welcome-right">
+                          <div className="welcome-text">
+                            <h1>BRUTUS GROUP</h1>
+                      
+            
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
         
 
           <div className="team-bg">
@@ -288,7 +305,7 @@ export default class Inicio extends Component {
             </div>
         </div>
     </div>
-    <iframe width="100%" height="800" src="https://7db0d14e.sibforms.com/serve/MUIEAIK6boFmZJ016HsTQHdxGR6dnBg2KTVKaBIdPCMiW2o5QbnKjVa0tBRsr7hwz0ZaOdO6AfPSasRUJPnqgbOtki9Xk4fYJ8wTyXkS6QHaoQG7HLhMy1KCCHRXjJFO7lA8fIkwVjOd_0PRRknkospxrFMUxsr4VL7DGpa5BD03iTzePASHMc_GvIW3MpFl8GbfrkHY1byuUXpm" frameborder="0" scrolling="auto" allowfullscreen style={{display: "block",marginLeft: "auto",marginRight: "auto",maxWidth: "100%"}} title="newsteller"></iframe>
+    <iframe width="100%" height="800" src="https://7db0d14e.sibforms.com/serve/MUIEAIK6boFmZJ016HsTQHdxGR6dnBg2KTVKaBIdPCMiW2o5QbnKjVa0tBRsr7hwz0ZaOdO6AfPSasRUJPnqgbOtki9Xk4fYJ8wTyXkS6QHaoQG7HLhMy1KCCHRXjJFO7lA8fIkwVjOd_0PRRknkospxrFMUxsr4VL7DGpa5BD03iTzePASHMc_GvIW3MpFl8GbfrkHY1byuUXpm" frameBorder="0" scrolling="auto" allowFullScreen style={{display: "block",marginLeft: "auto",marginRight: "auto",maxWidth: "100%"}} title="newsteller"></iframe>
     
 
         </>

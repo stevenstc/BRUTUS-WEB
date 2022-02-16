@@ -10,7 +10,7 @@ export default class Oficina extends Component {
 
     this.state = {
       deposito: "Cargando...",
-      wallet: "Cargando...",
+      wallet: this.props.accountAddress,
       balanceBRUT: 0,
       precioBRUT: 0,
       tokenCompra: 0,
@@ -51,8 +51,7 @@ export default class Oficina extends Component {
 
   async estado(){
 
-    var accountAddress =  await window.tronWeb.trx.getAccount();
-    accountAddress = window.tronWeb.address.fromHex(accountAddress.address);
+    var accountAddress = this.props.accountAddress;
 
     var tronBRUT = await window.tronWeb;
     var contractBRUT = await tronBRUT.contract().at(cons.BRUT);
@@ -92,7 +91,7 @@ export default class Oficina extends Component {
               
               <h5 >
               wallet:<br />
-                <strong>{this.state.wallet}</strong><br /><br />
+                <strong>{this.props.accountAddress}</strong><br /><br />
               </h5>
 
               <h6 className="p-3">
@@ -125,64 +124,6 @@ export default class Oficina extends Component {
           </div>
 
           
-        </div>
-
-        <div className="row">
-
-          <div className="col-lg-4 p-3">
-            <div className="card">
-            <br /><br />
-              
-              
-              <h6 >
-                <strong>Precio Promedio de Compra</strong><br />
-              </h6>
-              <hr />
-              <h5>
-                <strong>{(this.state.usdCompra/this.state.tokenCompra).toFixed(6)}</strong> (USDT)
-              </h5>
-
-            </div>
-              
-          </div>
-
-          <div className="col-lg-4 p-3">
-            <div className="card">
-            <br /><br />
-              
-              <h6 >
-                <strong>Precio Promedio de venta</strong><br />
-              </h6>
-              <hr />
-              <h5>
-                Precio: <strong>{(this.state.usdVenta/this.state.tokenVenta).toFixed(6)}</strong> (USDT)
-              </h5>
-
-            </div>
-              
-          </div>
-
-          <div className="col-lg-4 p-3">
-            <div className="card">
-            
-            <br /><br />
-        
-              <h6 >
-                <strong>Rentabilidad Obtenida</strong><br />
-              </h6>
-              <h5>
-                <strong>{((this.state.balanceBRUT*this.state.precioBRUT*100)/(this.state.balanceBRUT*(this.state.usdCompra/this.state.tokenCompra))-100).toFixed(2)}</strong> %
-              </h5>
-              <h5>
-                <strong>{((this.state.balanceBRUT*this.state.precioBRUT)-this.state.balanceBRUT*(this.state.usdCompra/this.state.tokenCompra)).toFixed(2)}</strong> (USDT)
-              </h5>
-
-
-            </div>
-              
-          </div>
-
-
         </div>
       </div>
 

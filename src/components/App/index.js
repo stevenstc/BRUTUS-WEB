@@ -15,7 +15,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      
+      accountAddress: "T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb",
       tronWeb: {
         address: "Cargando...",
         installed: false,
@@ -160,7 +160,7 @@ class App extends Component {
         return (
           <>
             <HomeBaner getString={getString}/>
-            <Home />
+            <Home accountAddress={this.state.accountAddress}/>
           </>
         );
 

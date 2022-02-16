@@ -13,13 +13,15 @@ export default class Trading extends Component {
       minCompra: 10,
       minventa: 1,
       deposito: "Cargando...",
-      wallet: "Cargando...",
+      wallet: this.props.accountAddress,
       valueBRUT: "",
       valueUSDT: "",
       value: "",
       balanceBRUT: 0,
-      balanceUSDT: 0 
-
+      balanceUSDT: 0,
+      precioBRUT: 0.07886435,
+      depositoUSDT: "Cargando...",
+      depositoBRUT: "Cargando...",
 
     };
 
@@ -31,18 +33,28 @@ export default class Trading extends Component {
     this.consultarPrecio = this.consultarPrecio.bind(this);
   }
 
-  handleChangeBRUT(event) {
-    this.setState({valueBRUT: event.target.value});
+  async handleChangeBRUT(event) {
+    this.consultarPrecio();
+    await this.setState({valueBRUT: event.target.value});
+
+    this.setState({valueUSDT: parseFloat((this.state.valueBRUT*this.state.precioBRUT).toPrecision(8))});
+
   }
 
-  handleChangeUSDT(event) {
-    this.setState({valueUSDT: event.target.value});
+  async handleChangeUSDT(event) {
+    this.consultarPrecio();
+    
+    await this.setState({valueUSDT: event.target.value});
+
+    this.setState({valueBRUT: parseFloat((this.state.valueUSDT/this.state.precioBRUT).toPrecision(8))});
+
+    
   }
 
   async componentDidMount() {
     await Utils.setContract(window.tronWeb, contractAddress);
-    this.estado();
-    setInterval(() => this.estado(),1*1000);
+
+    setInterval(() => {this.estado()},3*1000);
   };
 
   async consultarPrecio(){
@@ -65,8 +77,7 @@ export default class Trading extends Component {
 
   async estado(){
 
-    var accountAddress =  await window.tronWeb.trx.getAccount();
-    accountAddress = window.tronWeb.address.fromHex(accountAddress.address);
+    var accountAddress =  this.props.accountAddress;
 
     var inicio = accountAddress.substr(0,4);
     var fin = accountAddress.substr(-4);
@@ -92,7 +103,7 @@ export default class Trading extends Component {
     if (aprovadoUSDT > 0) {
       aprovadoUSDT = "Comprar "; 
     }else{
-      aprovadoUSDT = "Aprobar intercambio"; 
+      aprovadoUSDT = "Aprobar Compras"; 
       this.setState({
         valueUSDT: ""
       })
@@ -114,7 +125,7 @@ export default class Trading extends Component {
     if (aprovadoBRUT > 0) {
       aprovadoBRUT = "Vender ";
     }else{
-      aprovadoBRUT = "Aprobar intercambio";
+      aprovadoBRUT = "Aprobar Ventas";
       this.setState({
         valueBRUT: ""
       })
@@ -144,8 +155,7 @@ export default class Trading extends Component {
     amount = parseFloat(amount);
     amount = parseInt(amount*10**6);
 
-    var accountAddress =  await window.tronWeb.trx.getAccount();
-    accountAddress = window.tronWeb.address.fromHex(accountAddress.address);
+    var accountAddress =  this.props.accountAddress;
 
     var tronUSDT = await window.tronWeb;
     var contractUSDT = await tronUSDT.contract().at(cons.USDT);
@@ -167,7 +177,7 @@ export default class Trading extends Component {
           await Utils.contract.comprar(amount).send();
 
         }else{
-          window.alert("Please enter an amount greater than "+minCompra+" USDT");
+          window.alert("Ingrese un monto mayor a "+minCompra+" USDT");
           document.getElementById("amountUSDT").value = minCompra;
         }
 
@@ -182,10 +192,10 @@ export default class Trading extends Component {
         if ( amount > aprovado) {
           if (aprovado <= 0) {
             document.getElementById("amountUSDT").value = minCompra;
-            window.alert("You do not have enough funds in your account you place at least 10 USDT");
+            window.alert("No tienen suficiente USDT");
           }else{
             document.getElementById("amountUSDT").value = minCompra;
-            window.alert("You must leave 50 TRX free in your account to make the transaction");
+            window.alert("valor inválido");
           }
 
 
@@ -193,7 +203,7 @@ export default class Trading extends Component {
         }else{
 
           document.getElementById("amountUSDT").value = amount;
-          window.alert("You must leave 50 TRX free in your account to make the transaction");
+          window.alert("valor inválido");
 
         }
     }
@@ -210,8 +220,7 @@ export default class Trading extends Component {
     amount = parseFloat(amount);
     amount = parseInt(amount*10**6);
 
-    var accountAddress =  await window.tronWeb.trx.getAccount();
-    accountAddress = window.tronWeb.address.fromHex(accountAddress.address);
+    var accountAddress =  this.props.accountAddress;
 
     var tronBRUT = await window.tronWeb;
     var contractBRUT = await tronBRUT.contract().at(cons.BRUT);
@@ -233,7 +242,7 @@ export default class Trading extends Component {
           await Utils.contract.vender(amount).send();
 
         }else{
-          window.alert("Please enter an amount greater than 10 USDT");
+          window.alert("coloque un monto mayor a 10 USDT");
           document.getElementById("amountBRUT").value = 10;
         }
 
@@ -249,10 +258,10 @@ export default class Trading extends Component {
         if ( amount > aprovado) {
           if (aprovado <= 0) {
             document.getElementById("amountBRUT").value = minventa;
-            window.alert("You do not have enough funds in your account you place at least "+minventa+" USDT");
+            window.alert("lo minimo para vender son "+minventa+" BRUT");
           }else{
             document.getElementById("amountBRUT").value = minventa;
-            window.alert("You must leave 50 TRX free in your account to make the transaction");
+            window.alert("valor inválido");
           }
 
 
@@ -260,7 +269,7 @@ export default class Trading extends Component {
         }else{
 
           document.getElementById("amountBRUT").value = minventa;
-          window.alert("You must leave 50 TRX free in your account to make the transaction");
+          window.alert("valor inválido");
 
         }
 
@@ -282,58 +291,45 @@ export default class Trading extends Component {
 
 
       <div className="container text-center">
-        <div className="row">
+        <div className="row justify-content-md-center">
           <div className="col-lg-6 p-3">
             <div className="card">
             
               
               <h5 >
-                <strong>Comprar</strong><br />
+                <strong>Intercambio</strong><br />
               </h5>
               <hr color="white"/>
-              <p>
-                Tether: <strong>{this.state.balanceUSDT}</strong> (USDT)
-              </p>
-
+            
               <div className="form-group">
+                <p>
+                  Tether: <strong>{this.state.balanceUSDT}</strong> (USDT)
+                </p>
                 <input type="number" className="form-control mb-20 text-center" id="amountUSDT" value={this.state.valueUSDT} onChange={this.handleChangeUSDT} placeholder={minCompra}></input>
+                <br></br>
+                <p>
+                  Brutus Token: <strong>{this.state.balanceBRUT}</strong> (BRUT)
+                </p>
+                <input type="number" className="form-control mb-20 text-center" id="amountBRUT" value={this.state.valueBRUT} onChange={this.handleChangeBRUT} placeholder={minventa}></input>
+                <br></br>
+
                 <p className="card-text">
-                  debes tener ~ 50 TRX para hacer la transacción
+                  
+                  { (this.state.valueBRUT) + " BRUT = "+(this.state.valueUSDT)+" USDT"}
                   <br></br>
-                  <button className="btn btn-success" onClick={() => this.compra()}>{this.state.depositoUSDT }<br></br>{ (this.state.valueUSDT/this.state.precioBRUT).toFixed(8) + "BRUT"}</button>
+                  <button className="btn btn-success" style={{"wordBreak":"break-all"}} onClick={() => this.compra()}><b>{this.state.depositoUSDT}</b></button>
+                  {"  "}
+                  <button className="btn btn-danger" style={{"wordBreak":"break-all"}} onClick={() => this.venta()}><b>{this.state.depositoBRUT}</b></button>
+                  <br></br>
+                  Es necesario ~50 TRX para realizar la transacción
+                  
                 </p>
               </div>
               
             </div>
             
           </div>
-          
 
-          
-          <div className="col-lg-6 p-3">
-            <div className="card">
-            
-              
-              <h5>
-                <strong>Vender</strong><br />
-              </h5>
-              <hr color="white"/>
-              <p>
-                Brutus Token: <strong>{this.state.balanceBRUT}</strong> (BRUT)
-              </p>
-
-              <div className="form-group">
-                <input type="number" className="form-control mb-20 text-center" id="amountBRUT" value={this.state.valueBRUT} onChange={this.handleChangeBRUT} placeholder={minventa}></input>
-                <p className="card-text">debes tener ~ 50 TRX para hacer la transacción</p>
-
-                <button className="btn btn-danger" style={{"wordBreak":"break-all"}} onClick={() => this.venta()}>{this.state.depositoBRUT} <br></br> {(this.state.precioBRUT*this.state.valueBRUT).toFixed(6)} USDT</button>
-
-
-              </div>
-              
-            </div>
-            
-          </div>
         </div>
       </div>
 
