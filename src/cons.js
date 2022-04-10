@@ -8,7 +8,7 @@ const SC = "TBRVNF2YCJYGREKuPKaP7jYYP9R1jvVQeq";// direccion del contrato
 
 const USDT = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t";// contract for token USDT
 
-const BRUT = "TMnV9TeTFDUKmZR3ZQsMfd362hofvcFnqi";// contract for token trc20
+const BRUT = "TLGhEHUevHsfExxm4miyMxfmT5xumNr4BU";// contract for token trc20 BRUT
 
 const SC2 = "TMzxRLeBwfhm8miqm5v2qPw3P8rVZUa3x6";// direccion del contrato N°2 POOL Staking
 
