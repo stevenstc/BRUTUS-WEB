@@ -47,9 +47,7 @@ export default class nftOficina extends Component {
 
     var contractNFT = await window.tronWeb.contract().at(cons.SC4);
 
-    var balanceOf = await contractNFT.balanceOf(this.props.accountAddress).call();
-
-    for (let index = 0; index < balanceOf; index++) {
+    for (let index = 0; index < 25; index++) {
       var conteo = await contractMistery.entregaNFT(this.props.accountAddress, index).call()
       .then((conteo)=>{
         if(conteo._hex){
@@ -90,7 +88,12 @@ export default class nftOficina extends Component {
               <strong>#{robots[index].numero} {robots[index].name}</strong><br /><br />
             </h5>
             <img src={robots[index].image} alt={robots[index].name} className="img-thumbnail"></img>
-
+            <br></br>
+   
+            <button className="btn btn-success" onClick={async()=>{
+               var contractMistery = await window.tronWeb.contract().at(cons.SC3);
+               await contractMistery.claimNFT_especifico(robots[index].numero).send();
+            }}>Reclamar</button>
             
           </div>
           

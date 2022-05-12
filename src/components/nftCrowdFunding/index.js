@@ -9,7 +9,7 @@ export default class nftCrowdFunding extends Component {
 
     this.state = {
 
-
+      MC: "Cargando...",
       MB: "Cargando..."
     };
 
@@ -28,31 +28,37 @@ export default class nftCrowdFunding extends Component {
 
   async misterio() {
 
+    var contractNFT = await window.tronWeb.contract().at(cons.SC4);
+
     var contractMistery = await window.tronWeb.contract().at(cons.SC3);
 
     var mb = 0;
 
+    var mc = 0;
+
     for (let index = 0; index < 25; index++) {
-      var conteo = await contractMistery.entregaNFT(this.props.accountAddress, index).call()
-      .then((conteo)=>{
+      await contractMistery.entregaNFT(this.props.accountAddress, index).call()
+      .then(async(conteo)=>{
+
         if(conteo._hex){
-          console.log(parseInt(conteo._hex));
-          return 1;
-        }else{
-          return 0;
+          mc++;
+          var nft = await contractMistery.entregaNFT(this.props.accountAddress, index).call();
+          var ownerNft = await contractNFT.ownerOf(parseInt(nft._hex)).call();
+          ownerNft = window.tronWeb.address.fromHex(ownerNft);
+          console.log(ownerNft)
+          console.log(this.props.accountAddress)
+
+          if(ownerNft !== this.props.accountAddress){
+            mb++;
+          }
         }
       })
-      .catch(()=>{ console.log("error:"+index); return 0;})
+      .catch(console.error())
 
-      if(conteo === 0){
-        break;
-      }
-      mb += conteo;
-      
     }
 
-
     this.setState({
+      MC: mc,
       MB: mb
     })
 
@@ -120,7 +126,7 @@ export default class nftCrowdFunding extends Component {
 
                 <br></br><br></br>
 
-                Mistery Box compradas: {this.state.MB}
+                Mistery Box compradas: {this.state.MC}
 
                 <br></br>
 
