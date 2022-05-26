@@ -93,12 +93,9 @@ contract DinamicArray{
 }
 
 contract RandomNumber{
- 
-    // Initializing the state variable
+
     uint randNonce = 0;
-     
-    // Defining a function to generate
-    // a random number
+
     function randMod(uint _modulus, uint _moreRandom) public view returns(uint){
        
        return uint(keccak256(abi.encodePacked(block.timestamp, msg.sender, randNonce, _moreRandom))) % _modulus;
@@ -123,12 +120,10 @@ contract Loteria is RandomNumber, DinamicArray, Ownable{
 
     ITRC20 TRC20_Contract;
 
-    function buyLoteria() public payable returns(bool){
+    function buyLoteria() public payable {
 
         bolsaPesonas.push(msg.sender);
         doneRandom();
-
-        return myNFT;
 
     }
 
