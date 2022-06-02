@@ -1,5 +1,5 @@
 const proxy = "";
-const PRICE = "http://brutustronstaking.tk:3004/api/v1/precio/BRUT"; //API de precio
+const PRICE = "http://brutustronstaking.tk/api/v1/precio/BRUT"; //API de precio
 const PRU = "shasta1.";// shasta1. para inhabilitar red de pruebas
 
 const WS = "T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb";//T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb recibe los huerfanos por defecto
