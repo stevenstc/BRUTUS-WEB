@@ -56,7 +56,7 @@
                                 <script type="text/javascript">
 
                                     function consulta(){
-                                        var apiUrl = 'http://brutustronstaking.tk/api/v1/precio/BRUT';
+                                        var apiUrl = 'https://brutustronstaking.tk/api/v1/precio/BRUT';
                                         fetch(apiUrl).then(response => {
                                         return response.json();
                                         }).then(data => {
@@ -78,7 +78,7 @@
                                     }
 
                                     function consulta2(){
-                                        var apiUrl = 'http://brutustronstaking.tk/api/v1/precio/BRST';
+                                        var apiUrl = 'https://brutustronstaking.tk/api/v1/precio/BRST';
                                         fetch(apiUrl).then(response => {
                                         return response.json();
                                         }).then(data => {
@@ -111,11 +111,10 @@
                                     }
 
                                     switch (getString) {
+                                    case "BRST": 
+                                    case "brst": 
                                     case "staking": 
                                         consulta2();
-                                        break;
-                                    case "token": 
-                                        consulta();
                                         break;
                                     default:
                                         consulta();
@@ -130,9 +129,8 @@
                         <nav>
                             <ul id="slick-nav">
                                 <li><a class="scroll" href="/">Inicio</a></li>
-                                <li><a class="scroll" href="/?proyectos">Proyectos</a></li>
-                                <li><a class="scroll" href="/?token">BRUT</a></li>
-                                <li><a class="scroll" href="/?brst">BRST</a></li>
+                                <li><a class="scroll" href="/?BRUT">BRUT</a></li>
+                                <li><a class="scroll" href="/?BRST">BRST</a></li>
                                 <li><a class="scroll" href="/?nft">GALLERY (NFT)</a></li>
                                 <li><a class="scroll" target="_blank" href="https://bit.ly/3L780Ls">SR</a></li>
                             </ul>
@@ -170,21 +168,13 @@ This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <
 </p>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-2">
-                    <div class="single-footer">
-                        <ul>
-                            <li><a class="scroll" href="/">Inicio</a></li>
-                            <li><a class="scroll" href="/?token">BRUT (TOKEN)</a></li>
-                            <li><a class="scroll" href="/?staking">BRST (STAKING)</a></li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="col-6 col-lg-4">
                     <div class="single-footer">
                         <ul>
-                            <li><a target="_black" rel='noopener noreferrer' href="https://sunswap.com/#/home?tokenAddress=TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&type=swap">Exchange</a></li>
-                            <li><a target="_black" href="/assets/pdf/BRUTUS-TOKEN-WHITEPAPER.pdf">Brutus Token White Paper</a></li>
-                            <li><a target="_black" href="https://docs.google.com/document/d/e/2PACX-1vTcdLdWf8LDS5WMl2O2uJA9jo5F484lZc4lFovCiEHyiM6ZGwRzXwQtEu13afh2c8_QUyXE5sAQzkhm/pub">Brutus Staking White Paper</a></li>
+                            <li><a target="_black" href="/assets/pdf/BRUTUS-TOKEN-WHITEPAPER.pdf">Brutus Token - White Paper</a></li>
+                            <li><a target="_black" href="https://docs.google.com/document/d/e/2PACX-1vTcdLdWf8LDS5WMl2O2uJA9jo5F484lZc4lFovCiEHyiM6ZGwRzXwQtEu13afh2c8_QUyXE5sAQzkhm/pub">Brutus Staking - White Paper</a></li>
+                            <li><a target="_black" href="https://docs.google.com/document/d/e/2PACX-1vTcdLdWf8LDS5WMl2O2uJA9jo5F484lZc4lFovCiEHyiM6ZGwRzXwQtEu13afh2c8_QUyXE5sAQzkhm/pub">Brutus NFT GAME - White Paper</a></li>
+
                         </ul>
                     </div>
                 </div>

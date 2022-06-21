@@ -59,6 +59,7 @@ export default class Oficina extends Component {
     var balanceBRUT = await contractBRUT.balanceOf(accountAddress).call();
     balanceBRUT = parseInt(balanceBRUT._hex)/10**6;
 
+    
     var precioBRUT =  await this.consultarPrecio();
 
     var investor = await Utils.contract.investors(accountAddress).call();
@@ -85,43 +86,32 @@ export default class Oficina extends Component {
       <div className=" container text-center">
         <div className="row">
           
-          <div className="col-lg-8 p-2">
+          <div className="col-lg-12 p-2">
             <div className="card">
+            <div className="row justify-content-center align-items-center flex-column pb-30">
+                  <h1 className="text-white  text-center">Mis Brutus Token (BRUT)</h1>
+                </div>
+            <hr color="white"/>
+
             <br /><br />
               
-              <h5 >
+              <h6 >
               wallet:<br />
                 <strong>{this.props.accountAddress}</strong><br /><br />
-              </h5>
+              </h6>
 
-              <h6 className="p-3">
+              <h5 className="p-3">
                 Brutus Token: <strong>{this.state.balanceBRUT}</strong> (BRUT) <br />
               
                 Valor: <strong>{(this.state.balanceBRUT*this.state.precioBRUT).toFixed(6)}</strong> (USDT)
-              </h6>
+              </h5>
 
               
             </div>
             
           </div>
 
-          <div className="col-lg-4 p-3">
-            <div className="card">
-            <br /><br />
-            
-              
-            <h6 >
-              <strong>Precio actual Brutus (BRUT)</strong><br />
-            </h6>
-            <hr />
-            <h2>
-              <strong>{this.state.precioBRUT}</strong> <br />
-              (USDT)
-            </h2>
-
-            </div>
-              
-          </div>
+          
 
           
         </div>

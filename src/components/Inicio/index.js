@@ -8,26 +8,75 @@ export default class Inicio extends Component {
       return (
         <>
 
-<div className="welcome-area wow fadeInUp" id="home">
+        <div className="welcome-area wow fadeInUp" id="home">
               <div id="particles-js"></div>
-              <div className="container align-self-center">
-                  <div className="row align-self-center">
-                      <div className="col-12 col-md-6 align-self-center">
-                        <div className="welcome-right">
-                          <div className="welcome-text">
+          
+            <div className="container">
+                <div className="row">
+                    <div className="col-12 text-center">
+                        <div className="heading">
+                            <h5>Sistema de fondos garantizados</h5>
+                            <div className="space-10"></div>
                             <h1>BRUTUS GROUP</h1>
-                      
-            
-                          </div>
                         </div>
-                      </div>
-                  </div>
-              </div>
+                        <div className="space-60"></div>
+                    </div>
+                </div>
+                <div className="row text-center">
+                    <div className="col-12 col-md-6 col-lg-4">
+                        <div className="single-team">
+                            <div className="single-team-img">
+                                <a href="/?token"><img src="assets/img/brut.png" alt="brut" /></a>
+                            </div>
+                            <div className="space-30"></div>
+                            <div className="single-team-content">
+                                <h3>Brutus Token (BRUT) </h3>
+                                <div className="space-10"></div>
+                                <h6>Respaldado por USDT usado para Trading</h6>
+                            </div>
+                            <div className="space-10"></div>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-4">
+                        <div className="single-team">
+                            <div className="single-team-img">
+                              <a href="/?staking"><img src="assets/img/brst.png" alt="brst" /></a>
+                            </div>
+                            <div className="space-30"></div>
+                            <div className="single-team-content">
+                                <h3>Brutus Tron Staking (BRST) </h3>
+                                <div className="space-10"></div>
+                                <h6>Respaldado por TRX y un NODO en la red de TRON</h6>
+                            </div>
+                            <div className="space-10"></div>
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-md-6 col-lg-4">
+                        <div className="single-team">
+                            <div className="single-team-img">
+                              <a href="/?brgy"><img src="assets/img/brgy.png" alt="brgy" /></a>
+                            </div>
+                            <div className="space-30"></div>
+                            <div className="single-team-content">
+                                <h3>Brutus Gallery (BRGY)</h3>
+                                <div className="space-10"></div>
+                                <h6>Respaldado por APENFT usado para desarrollar un juego NFT</h6>
+                            </div>
+                            <div className="space-10"></div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
           </div>
         
 
           <div className="team-bg">
         <div className="team-area wow fadeInUp section-padding" id="team">
+
             <div className="container">
                 <div className="row">
                     <div className="col-12 text-center">
@@ -40,7 +89,8 @@ export default class Inicio extends Component {
                     </div>
                 </div>
                 <div className="row text-center">
-                    <div className="col-12 col-md-6 col-lg-4">
+
+                <div className="col-12 col-md-6 col-lg-4">
                         <div className="single-team">
                             <div className="single-team-img">
                                 <img src="assets/img/vicente.jpg" alt="vicente nires" />
@@ -62,6 +112,7 @@ export default class Inicio extends Component {
                             </div>
                         </div>
                     </div>
+
                     <div className="col-12 col-md-6 col-lg-4">
                         <div className="single-team">
                             <div className="single-team-img">
@@ -114,67 +165,7 @@ export default class Inicio extends Component {
 
                 </div>
             </div>
-   
-            <div className="container">
-                <div className="row">
-                    <div className="col-12 text-center">
-                        <div className="heading">
-                        <div className="space-60"></div>
-                            <h5>Nos gusta garantizar los fondos</h5>
-                            <div className="space-10"></div>
-                            <h1>Nuestros Productos Respaldados</h1>
-                        </div>
-                        <div className="space-60"></div>
-                    </div>
-                </div>
-                <div className="row text-center">
-                    <div className="col-12 col-md-6 col-lg-4">
-                        <div className="single-team">
-                            <div className="single-team-img">
-                                <a href="/?token"><img src="assets/img/brut.png" alt="brut" /></a>
-                            </div>
-                            <div className="space-30"></div>
-                            <div className="single-team-content">
-                                <h3>BRUT </h3>
-                                <div className="space-10"></div>
-                                <h6>Brutus Token</h6>
-                            </div>
-                            <div className="space-10"></div>
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-6 col-lg-4">
-                        <div className="single-team">
-                            <div className="single-team-img">
-                              <a href="/?staking"><img src="assets/img/brst.png" alt="brst" /></a>
-                            </div>
-                            <div className="space-30"></div>
-                            <div className="single-team-content">
-                                <h3>BRST </h3>
-                                <div className="space-10"></div>
-                                <h6>Brutus Tron Staking</h6>
-                            </div>
-                            <div className="space-10"></div>
-                        </div>
-                    </div>
 
-                    <div className="col-12 col-md-6 col-lg-4">
-                        <div className="single-team">
-                            <div className="single-team-img">
-                              <a href="/?brgy"><img src="assets/img/brgy.png" alt="brgy" /></a>
-                            </div>
-                            <div className="space-30"></div>
-                            <div className="single-team-content">
-                                <h3>BRGY</h3>
-                                <div className="space-10"></div>
-                                <h6>Brutus Gallery - NFT</h6>
-                            </div>
-                            <div className="space-10"></div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
         </div>
 
         <div className="faq-area wow fadeInUp" id="faq">
@@ -305,8 +296,6 @@ export default class Inicio extends Component {
             </div>
         </div>
     </div>
-    <iframe width="100%" height="800" src="https://7db0d14e.sibforms.com/serve/MUIEAIK6boFmZJ016HsTQHdxGR6dnBg2KTVKaBIdPCMiW2o5QbnKjVa0tBRsr7hwz0ZaOdO6AfPSasRUJPnqgbOtki9Xk4fYJ8wTyXkS6QHaoQG7HLhMy1KCCHRXjJFO7lA8fIkwVjOd_0PRRknkospxrFMUxsr4VL7DGpa5BD03iTzePASHMc_GvIW3MpFl8GbfrkHY1byuUXpm" frameBorder="0" scrolling="auto" allowFullScreen style={{display: "block",marginLeft: "auto",marginRight: "auto",maxWidth: "100%"}} title="newsteller"></iframe>
-    
 
         </>
       );

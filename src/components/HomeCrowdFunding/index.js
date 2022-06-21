@@ -292,12 +292,13 @@ export default class Trading extends Component {
 
       <div className="container text-center">
         <div className="row justify-content-md-center">
-          <div className="col-lg-6 p-3">
+          <div className="col-lg-12 p-3">
             <div className="card">
             
               
               <h5 >
                 <strong>Intercambio</strong><br />
+                1 BRUT = {this.state.precioBRUT} USDT
               </h5>
               <hr color="white"/>
             
