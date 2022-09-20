@@ -83,6 +83,7 @@ export default class nftOficina extends Component {
 
     }
 
+
     var imagerobots = [];
     var recBotton = (<></>)
 
@@ -92,7 +93,7 @@ export default class nftOficina extends Component {
         recBotton = (
           <button className="btn btn-success" onClick={async()=>{
             var contractMistery = await window.tronWeb.contract().at(cons.SC3);
-            await contractMistery.claimNFT_especifico(robots[index].numero).send();
+            await contractMistery.claimNFT_especifico(index).send();
          }}>Reclamar</button>
         )
       }else{
