@@ -51,8 +51,7 @@ export default class nftOficina extends Component {
       var conteo = await contractMistery.entregaNFT(this.props.accountAddress, index).call()
       .then((conteo)=>{
         if(conteo._hex){
-          robots.push(parseInt(conteo._hex));
-          return 1;
+          robots.push(parseInt(conteo._hex));return 1;
         }
       })
       .catch(()=>{
@@ -64,6 +63,14 @@ export default class nftOficina extends Component {
       }
       
     }
+
+    var estonuevo = [];
+
+    for(let index = 0; index < robots.length; index++){
+      estonuevo[index] = window.tronWeb.address.fromHex(await contractNFT.ownerOf(robots[index]).call()) === this.props.accountAddress
+    }
+
+    console.log(estonuevo)
 
     for (let index = 0; index < robots.length; index++) {
 
@@ -77,8 +84,21 @@ export default class nftOficina extends Component {
     }
 
     var imagerobots = [];
+    var recBotton = (<></>)
 
     for (let index = 0; index < robots.length; index++) {
+
+      if(!estonuevo[index]){
+        recBotton = (
+          <button className="btn btn-success" onClick={async()=>{
+            var contractMistery = await window.tronWeb.contract().at(cons.SC3);
+            await contractMistery.claimNFT_especifico(robots[index].numero).send();
+         }}>Reclamar</button>
+        )
+      }else{
+        recBotton = (<></>)
+      }
+      
       imagerobots[index] =(
         <div className="col-lg-3 p-2" key={"robbrutN"+index}>
           <div className="card">
@@ -90,10 +110,7 @@ export default class nftOficina extends Component {
             <img src={robots[index].image} alt={robots[index].name} className="img-thumbnail"></img>
             <br></br>
    
-            <button className="btn btn-success" onClick={async()=>{
-               var contractMistery = await window.tronWeb.contract().at(cons.SC3);
-               await contractMistery.claimNFT_especifico(robots[index].numero).send();
-            }}>Reclamar</button>
+            {recBotton}
             
           </div>
           
