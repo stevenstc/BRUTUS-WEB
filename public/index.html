@@ -8,11 +8,11 @@
 
     <!-- SEO tags -->
 
-    <meta property="og:title" content="Brutus Token" />
-    <meta property="og:description" content="¡El Token que tradea por ti!" />
+    <meta property="og:title" content="Brutus Group" />
+    <meta property="og:description" content="Especialistas en productos Blockchain respaldados." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://brutustoken.tk/" />
-    <meta property="og:image" content="https://brutustoken.tk/assets/img/Brutus.png" />
+    <meta property="og:url" content="https://brutustoken.com/" />
+    <meta property="og:image" content="https://brutustoken.com/assets/img/Brutus.png" />
 
     <!-- carousel CSS -->
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
@@ -55,8 +55,10 @@
     
                                 <script type="text/javascript">
 
+                                    var API = "https://chainlist.tk/";
+
                                     function consulta(){
-                                        var apiUrl = 'https://laurldeencuentro.tk/api/v1/precio/BRUT';
+                                        var apiUrl = API+'api/v1/precio/BRUT';
                                         fetch(apiUrl).then(response => {
                                         return response.json();
                                         }).then(data => {
@@ -78,7 +80,7 @@
                                     }
 
                                     function consulta2(){
-                                        var apiUrl = 'https://laurldeencuentro.tk/api/v1/precio/BRST';
+                                        var apiUrl = API+'api/v1/precio/BRST';
                                         fetch(apiUrl).then(response => {
                                         return response.json();
                                         }).then(data => {

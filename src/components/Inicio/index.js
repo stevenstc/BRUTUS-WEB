@@ -15,9 +15,10 @@ export default class Inicio extends Component {
                 <div className="row">
                     <div className="col-12 text-center">
                         <div className="heading">
-                            <h5>Sistema de fondos garantizados</h5>
-                            <div className="space-10"></div>
                             <h1>BRUTUS GROUP</h1>
+                            <div className="space-10"></div>
+                            <h5>Tús especialistas en productos Blockchain respaldados.</h5>
+
                         </div>
                         <div className="space-60"></div>
                     </div>
@@ -32,7 +33,7 @@ export default class Inicio extends Component {
                             <div className="single-team-content">
                                 <h3>Brutus Token (BRUT) </h3>
                                 <div className="space-10"></div>
-                                <h6>Respaldado por USDT usado para Trading</h6>
+                                <h6>Respaldado por USDT, su precio depende de la operativa de una estrategia de trading automatizado basada en Backtesting</h6>
                             </div>
                             <div className="space-10"></div>
                         </div>
@@ -46,7 +47,7 @@ export default class Inicio extends Component {
                             <div className="single-team-content">
                                 <h3>Brutus Tron Staking (BRST) </h3>
                                 <div className="space-10"></div>
-                                <h6>Respaldado por TRX y un NODO en la red de TRON</h6>
+                                <h6>Su valor siempre es creciente frente a TRX, ya que basa su valor en el Staking a interés compuesto y el alquiler de energía.</h6>
                             </div>
                             <div className="space-10"></div>
                         </div>
@@ -61,7 +62,22 @@ export default class Inicio extends Component {
                             <div className="single-team-content">
                                 <h3>Brutus Gallery (BRGY)</h3>
                                 <div className="space-10"></div>
-                                <h6>Respaldado por APENFT usado para desarrollar un juego NFT</h6>
+                                <h6>Es el contrato NFT de Brutus y a diferencia de otras colecciones, estos están respaldados por un valor tangible además de su valor subjetivo y artístico.</h6>
+                            </div>
+                            <div className="space-10"></div>
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-md-6 col-lg-4">
+                        <div className="single-team">
+                            <div className="single-team-img">
+                              <a href="/?brgy"><img src="assets/img/brgy.png" alt="brgy" /></a>
+                            </div>
+                            <div className="space-30"></div>
+                            <div className="single-team-content">
+                                <h3>Brutus Energy Bot (BREB)</h3>
+                                <div className="space-10"></div>
+                                <h6>Nuestro bot automatizado de alquiler de energía, te permitirá alquilar Tron energy al mejor precio.</h6>
                             </div>
                             <div className="space-10"></div>
                         </div>
