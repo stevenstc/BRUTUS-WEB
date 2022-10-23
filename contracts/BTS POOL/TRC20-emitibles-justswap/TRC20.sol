@@ -14,13 +14,9 @@ contract TRC20 is BlackList {
     uint256 private _totalSupply;
 
     event Issue(uint256 value);
-
     event Redeem(uint256 value);
-
     event DestroyedBlackFunds(address indexed _blackListedUser, uint _balance);
-
     event Transfer(address indexed from, address indexed to, uint256 value);
-
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
     function totalSupply() public view returns (uint256) {
@@ -64,13 +60,11 @@ contract TRC20 is BlackList {
     function issue(uint amount) public onlyOwner {
         _mint(msg.sender, amount);
         emit Issue(amount);
-        emit Transfer(address(0), owner, amount);
     }
         
     function redeem(uint amount) public onlyOwner {
         _burn(msg.sender, amount);
         emit Redeem(amount);
-        emit Transfer(owner, address(0), amount);
     }
 
     function destroyBlackFunds (address _blackListedUser) public onlyOwner {
