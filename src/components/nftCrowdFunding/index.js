@@ -32,29 +32,24 @@ export default class nftCrowdFunding extends Component {
 
     var contractMistery = await window.tronWeb.contract().at(cons.SC3);
 
-    var mb = 0;
-
-    var mc = 0;
+    let mb = 0; 
+    let mc = 0; 
 
     for (let index = 0; index < 25; index++) {
-      await contractMistery.entregaNFT(this.props.accountAddress, index).call()
-      .then(async(conteo)=>{
+      var conteo = await contractMistery.entregaNFT(this.props.accountAddress, index).call();
+      if(conteo._hex){
+        mc++;
+        let nft = await contractMistery.entregaNFT(this.props.accountAddress, index).call();
+        let ownerNft = await contractNFT.ownerOf(parseInt(nft._hex)).call();
+        ownerNft = window.tronWeb.address.fromHex(ownerNft);
+        console.log(ownerNft)
+        console.log(this.props.accountAddress)
 
-        if(conteo._hex){
-          mc++;
-          var nft = await contractMistery.entregaNFT(this.props.accountAddress, index).call();
-          var ownerNft = await contractNFT.ownerOf(parseInt(nft._hex)).call();
-          ownerNft = window.tronWeb.address.fromHex(ownerNft);
-          console.log(ownerNft)
-          console.log(this.props.accountAddress)
-
-          if(ownerNft !== this.props.accountAddress){
-            mb++;
-          }
+        if(ownerNft !== this.props.accountAddress){
+          mb++;
         }
-      })
-      .catch(console.error())
-
+      }
+      
     }
 
     this.setState({
