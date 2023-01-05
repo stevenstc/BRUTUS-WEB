@@ -193,6 +193,36 @@ class App extends Component {
             </>
           );
 
+
+      case "loteria":
+      case "rifa":
+      case "sorteo":
+      case "trc115":
+                if (!this.state.tronWeb.installed) return (
+                  <>
+                    <NftBaner/>
+                    <div className="container">
+                      <TronLinkGuide url={"/?"+getString}/>
+                    </div>
+                  </>
+                  );
+            
+                if (!this.state.tronWeb.loggedIn) return (
+                  <>
+                    <NftBaner/>
+                    <div className="container">
+                      <TronLinkGuide installed url={"/?"+getString}/>
+                    </div>
+                  </>
+                  );
+            
+                return (
+                  <>
+                    <NftBaner getString={getString}/>
+                    <Nft accountAddress={this.state.accountAddress} />
+                  </>
+                );
+      
     
       default:  
 

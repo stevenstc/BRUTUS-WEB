@@ -59,19 +59,18 @@
 
                                     function consulta(){
                                         var apiUrl = API+'api/v1/precio/BRUT';
-                                        fetch(apiUrl).then(response => {
-                                        return response.json();
-                                        }).then(data => {
-                                        // Work with JSON data
-                                        var price = data.Data.usd;
-                                        //console.log(price);
+                                        fetch(apiUrl)
+                                        .then(response => {return response.json();})
+                                        .then(data => {
+                                            
+                                            var price = data.Data.usd;
 
-                                        var elem = document.getElementById("imagen");
-                                        elem.src = "assets/img/BRUTUS+TOKEN+PNG+LETRA+blanca.png";
-                                        elem = document.getElementById("imagelink");
-                                        elem.href = 'https://bit.ly/3HqnI1Z';
-        
-                                        document.getElementById("p1").innerHTML = "$"+price+" USDT";
+                                            var elem = document.getElementById("imagen");
+                                            elem.src = "assets/img/BRUTUS+TOKEN+PNG+LETRA+blanca.png";
+                                            elem = document.getElementById("imagelink");
+                                            elem.href = 'https://bit.ly/3HqnI1Z';
+            
+                                            document.getElementById("p1").innerHTML = "$"+price+" USDT";
                                         }).catch(err => {
                                             console.log(err);
                                             document.getElementById("p1").innerHTML = "Loading...";
@@ -81,20 +80,17 @@
 
                                     function consulta2(){
                                         var apiUrl = API+'api/v1/precio/BRST';
-                                        fetch(apiUrl).then(response => {
-                                        return response.json();
-                                        }).then(data => {
-                                        // Work with JSON data
-                                        var price = data.Data.trx;
-                                        //console.log(price);
+                                        fetch(apiUrl).then(response => {return response.json();})
+                                        .then(data => {
+                                            
+                                            var price = data.Data.trx;
 
-                                        var elem = document.getElementById("imagen");
-                                        elem.src = "assets/img/BRUTUS+BRST+PNG+LETRA+blanca.png";
-                                        elem = document.getElementById("imagelink");
-                                        elem.href = `https://bit.ly/3rqIxES`;
-
-        
-                                        document.getElementById("p1").innerHTML = price+" TRX";
+                                            var elem = document.getElementById("imagen");
+                                            elem.src = "assets/img/BRUTUS+BRST+PNG+LETRA+blanca.png";
+                                            elem = document.getElementById("imagelink");
+                                            elem.href = `https://bit.ly/3rqIxES`;
+            
+                                            document.getElementById("p1").innerHTML = price+" TRX";
                                         }).catch(err => {
                                             console.log(err);
                                             document.getElementById("p1").innerHTML = "Loading...";
@@ -104,11 +100,11 @@
 
                                     var getString = "";
                                     var loc = document.location.href;
-                                    //console.log(loc);
+                                    
                                     if(loc.indexOf('?')>0){
-                                            
-                                    getString = loc.split('?')[1];
-                                    getString = getString.split('#')[0];
+                                                
+                                        getString = loc.split('?')[1];
+                                        getString = getString.split('#')[0];
 
                                     }
 
@@ -133,7 +129,8 @@
                                 <li><a class="scroll" href="/">Inicio</a></li>
                                 <li><a class="scroll" href="/?BRUT">BRUT</a></li>
                                 <li><a class="scroll" href="/?BRST">BRST</a></li>
-                                <li><a class="scroll" href="/?nft">GALLERY (NFT)</a></li>
+                                <li><a class="scroll" href="/?nft">BRGY</a></li>
+                                <li><a class="scroll" href="/?loteria">lotería</a></li>
                                 <li><a class="scroll" target="_blank" href="https://bit.ly/3L780Ls">SR</a></li>
                             </ul>
                         </nav>

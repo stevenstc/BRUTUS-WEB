@@ -71,7 +71,7 @@ export default class Inicio extends Component {
                     <div className="col-12 col-md-6 col-lg-4">
                         <div className="single-team">
                             <div className="single-team-img">
-                              <a href="/?brgy"><img src="assets/img/breb.png" alt="brgy" /></a>
+                              <a href="https://t.me/BRUTUS_ENERGY"><img src="assets/img/breb.png" alt="robot de breb" /></a>
                             </div>
                             <div className="space-30"></div>
                             <div className="single-team-content">
