@@ -1,8 +1,8 @@
 {
   "title": "YellowBlack",
   "name": "YellowBlack",
-  "image": "https://mintearte.tk/nft/19-BRST/19-BRST.jpg",
-  "fileUrl": "https://mintearte.tk/nft/19-BRST/19-BRST.jpg",
+  "image": "https://brutustoken.com/nft/19-BRST/19-BRST.jpg",
+  "fileUrl": "https://brutustoken.com/nft/19-BRST/19-BRST.jpg",
   "description": "Colección: Brutus primera edición,\nPosición: #19,\nTipología: Común,\nFamilia: Brutus,\nEnfoque: Staking,\nArtista: Xiz Art,\nVMG Inicial: 5.000.000 APENFT",
   "externalLink": "https://brutustoken.com",
   "attributes": [
@@ -22,7 +22,7 @@
     },
     "image":{
       "type": "string",
-      "description": "https://mintearte.tk/nft/19-BRST/19-BRST.jpg"
+      "description": "https://brutustoken.com/nft/19-BRST/19-BRST.jpg"
     },
     "created_at": {
       "type": "datetime",

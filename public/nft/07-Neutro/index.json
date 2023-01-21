@@ -1,8 +1,8 @@
 {
   "title": "LigthtOrange",
   "name": "LigthtOrange",
-  "image": "https://mintearte.tk/nft/07-Neutro/07-Neutro.jpg",
-  "fileUrl": "https://mintearte.tk/nft/07-Neutro/07-Neutro.jpg",
+  "image": "https://brutustoken.com/nft/07-Neutro/07-Neutro.jpg",
+  "fileUrl": "https://brutustoken.com/nft/07-Neutro/07-Neutro.jpg",
   "description": "Colección: Brutus primera edición,\nPosición: #7,\nTipología: Original,\nFamilia: Brutus,\nArtista: Xiz Art,\nVMG Inicial: 10.000.000 APENFT",
   "externalLink": "https://brutustoken.com",
   "attributes": [
@@ -22,7 +22,7 @@
     },
     "image":{
       "type": "string",
-      "description": "https://mintearte.tk/nft/07-Neutro/07-Neutro.jpg"
+      "description": "https://brutustoken.com/nft/07-Neutro/07-Neutro.jpg"
     },
     "created_at": {
       "type": "datetime",

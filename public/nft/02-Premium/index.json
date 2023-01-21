@@ -1,8 +1,8 @@
 {
   "title": "Brutus Plateado",
   "name": "Brutus Plateado",
-  "image": "https://mintearte.tk/nft/02-Premium/02-Premium.jpg",
-  "fileUrl": "https://mintearte.tk/nft/02-Premium/02-Premium.jpg",
+  "image": "https://brutustoken.com/nft/02-Premium/02-Premium.jpg",
+  "fileUrl": "https://brutustoken.com/nft/02-Premium/02-Premium.jpg",
   "description": "Colección: Brutus primera edición,\nPosición: #2,\nTipología: Premium,\nFamilia: Brutus,\nEnfoque: Staking,\nArtista: Xiz Art,\nVMG Inicial: 16.000.000 APENFT",
   "externalLink": "https://brutustoken.com",
   "attributes": [
@@ -22,7 +22,7 @@
     },
     "image":{
       "type": "string",
-      "description": "https://mintearte.tk/nft/02-Premium/02-Premium.jpg"
+      "description": "https://brutustoken.com/nft/02-Premium/02-Premium.jpg"
     },
     "created_at": {
       "type": "datetime",

@@ -1,8 +1,8 @@
 {
   "title": "BrownGreen",
   "name": "BrownGreen",
-  "image": "https://mintearte.tk/nft/24-BRST/24-BRST.jpg",
-  "fileUrl": "https://mintearte.tk/nft/24-BRST/24-BRST.jpg",
+  "image": "https://brutustoken.com/nft/24-BRST/24-BRST.jpg",
+  "fileUrl": "https://brutustoken.com/nft/24-BRST/24-BRST.jpg",
   "description": "Colección: Brutus primera edición,\nPosición: #24,\nTipología: Común,\nFamilia: Brutus,\nEnfoque: Staking,\nArtista: Xiz Art,\nVMG Inicial: 5.000.000 APENFT",
   "externalLink": "https://brutustoken.com",
   "attributes": [
@@ -22,7 +22,7 @@
     },
     "image":{
       "type": "string",
-      "description": "https://mintearte.tk/nft/24-BRST/24-BRST.jpg"
+      "description": "https://brutustoken.com/nft/24-BRST/24-BRST.jpg"
     },
     "created_at": {
       "type": "datetime",

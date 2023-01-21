@@ -1,8 +1,8 @@
 {
   "title": "Brutus Dorado",
   "name": "Brutus Dorado",
-  "image": "https://mintearte.tk/nft/01-Premium-Ultra/01-Premium-Ultra.jpg",
-  "fileUrl": "https://mintearte.tk/nft/01-Premium-Ultra/01-Premium-Ultra.jpg",
+  "image": "https://brutustoken.com/nft/01-Premium-Ultra/01-Premium-Ultra.jpg",
+  "fileUrl": "https://brutustoken.com/nft/01-Premium-Ultra/01-Premium-Ultra.jpg",
   "description": "Colección: Brutus primera edición,\nPosición: #1,\nTipología: Ultra Premium,\nFamilia: Brutus,\nArtista: Xiz Art,\nVMG Inicial: 20.000.000 APENFT",
   "externalLink": "https://brutustoken.com",
   "attributes": [
@@ -22,7 +22,7 @@
     },
     "image":{
       "type": "string",
-      "description": "https://mintearte.tk/nft/01-Premium-Ultra/01-Premium-Ultra.jpg"
+      "description": "https://brutustoken.com/nft/01-Premium-Ultra/01-Premium-Ultra.jpg"
     },
     "created_at": {
       "type": "datetime",

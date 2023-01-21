@@ -1,8 +1,8 @@
 {
   "title": "Energy Card",
   "name": "CERTIFIED PROVIDER 3",
-  "image": "https://mintearte.tk/nft/ID/03/image.gif",
-  "fileUrl": "https://mintearte.tk/nft/ID/03/image.gif",
+  "image": "https://brutustoken.com/nft/ID/03/image.gif",
+  "fileUrl": "https://brutustoken.com/nft/ID/03/image.gif",
 "description": "Este NFT verifica que el titular del mismo es un \"certified provider\" de Brutus Energy.\n This NFT verifies that the holder of the NFT is a \"certified supplier\" of Brutus Energy.",
   "externalLink": "https://brutustoken.com",
   "attributes": [
@@ -22,7 +22,7 @@
     },
     "image":{
       "type": "string",
-      "description": "https://mintearte.tk/nft/ID/03/image.gif"
+      "description": "https://brutustoken.com/nft/ID/03/image.gif"
     },
     "created_at": {
       "type": "datetime",

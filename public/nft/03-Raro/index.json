@@ -1,8 +1,8 @@
 {
   "title": "Brutus Futbolista #1",
   "name": "Brutus Futbolista #1",
-  "image": "https://mintearte.tk/nft/03-Raro/03-Raro.jpg",
-  "fileUrl": "https://mintearte.tk/nft/03-Raro/03-Raro.jpg",
+  "image": "https://brutustoken.com/nft/03-Raro/03-Raro.jpg",
+  "fileUrl": "https://brutustoken.com/nft/03-Raro/03-Raro.jpg",
   "description": "Colección: Brutus primera edición,\nPosición: #3,\nTipología: Raro,\nFamilia: Brutus,\nEnfoque: Staking,\nArtista: Xiz Art,\nVMG Inicial: 14.500.000 APENFT",
   "externalLink": "https://brutustoken.com",
   "attributes": [
@@ -22,7 +22,7 @@
     },
     "image":{
       "type": "string",
-      "description": "https://mintearte.tk/nft/03-Raro/03-Raro.jpg"
+      "description": "https://brutustoken.com/nft/03-Raro/03-Raro.jpg"
     },
     "created_at": {
       "type": "datetime",

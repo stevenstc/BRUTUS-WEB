@@ -1,8 +1,8 @@
 {
   "title": "Brutus Staking PurpleGold",
   "name": "Brutus Staking PurpleGold",
-  "image": "https://mintearte.tk/nft/06-Especial/06-Especial.jpg",
-  "fileUrl": "https://mintearte.tk/nft/06-Especial/06-Especial.jpg",
+  "image": "https://brutustoken.com/nft/06-Especial/06-Especial.jpg",
+  "fileUrl": "https://brutustoken.com/nft/06-Especial/06-Especial.jpg",
   "description": "Colección: Brutus primera edición,\nPosición: #6,\nTipología: Ultra Premium,\nFamilia: Brutus,\nArtista: Xiz Art,\nVMG Inicial: 12.500.000 APENFT",
   "externalLink": "https://brutustoken.com",
   "attributes": [
@@ -22,7 +22,7 @@
     },
     "image":{
       "type": "string",
-      "description": "https://mintearte.tk/nft/06-Especial/06-Especial.jpg"
+      "description": "https://brutustoken.com/nft/06-Especial/06-Especial.jpg"
     },
     "created_at": {
       "type": "datetime",

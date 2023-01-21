@@ -1,8 +1,8 @@
 {
   "title": "PurpleGreen",
   "name": "PurpleGreen",
-  "image": "https://mintearte.tk/nft/25-BRST/25-BRST.jpg",
-  "fileUrl": "https://mintearte.tk/nft/25-BRST/25-BRST.jpg",
+  "image": "https://brutustoken.com/nft/25-BRST/25-BRST.jpg",
+  "fileUrl": "https://brutustoken.com/nft/25-BRST/25-BRST.jpg",
   "description": "Colección: Brutus primera edición,\nPosición: #25,\nTipología: Común,\nFamilia: Brutus,\nEnfoque: Staking,\nArtista: Xiz Art,\nVMG Inicial: 5.000.000 APENFT",
   "externalLink": "https://brutustoken.com",
   "attributes": [
@@ -22,7 +22,7 @@
     },
     "image":{
       "type": "string",
-      "description": "https://mintearte.tk/nft/25-BRST/25-BRST.jpg"
+      "description": "https://brutustoken.com/nft/25-BRST/25-BRST.jpg"
     },
     "created_at": {
       "type": "datetime",
