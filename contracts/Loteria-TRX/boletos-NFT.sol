@@ -459,7 +459,7 @@ contract  TRC721 is Context, TRC165, MinterRole  {
     }
 
     function mintLoteryToken(address to) public onlyMinter returns (bool) {
-        string memory token_URI = "index";
+        string memory token_URI = "nft/loteria/index.json";
         uint256 tokenId = totalSupply();
         _mint(to, tokenId);
         _setTokenURI(tokenId, token_URI);

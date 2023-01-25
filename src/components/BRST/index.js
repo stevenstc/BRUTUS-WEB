@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-import CrowdFunding from "../nftCrowdFunding";
-import Oficina from "../nftOficina";
+import CrowdFunding from "./StakingCrowdFunding";
+import Oficina from "./StakingOficina";
 
-export default class nfts extends Component {
+export default class Staking extends Component {
   
   render() {
 
@@ -13,12 +13,12 @@ export default class nfts extends Component {
             <div className="container">
               <div className="convert-wrap">
                 <div className="row justify-content-center align-items-center flex-column pb-30">
-                  <h1 className="text-white text-center">¡¡SUMATE A LA REVOLUCIÓN DE LOS NFT!!</h1>
+                  <h1 className="text-white text-center">¡¡SUMATE A LA REVOLUCIÓN DEL STAKING de TRON!!</h1>
                 </div>
                 <div className="row justify-content-center align-items-start">
         
                   <div className="col-lg-12 cols">
-                    <CrowdFunding accountAddress={this.props.accountAddress} />
+                    <CrowdFunding />
                   </div>
         
                 </div>
@@ -30,12 +30,12 @@ export default class nfts extends Component {
             <div className="container">
               <div className="convert-wrap">
                 <div className="row justify-content-center align-items-center flex-column pb-30">
-                  <h1 className="text-white  text-center">Mis Brutus Gallery (BRGY)</h1>
+                  <h1 className="text-white  text-center">Mis Brutus Staking (BRST)</h1>
                 </div>
                 <div className="row justify-content-center align-items-start">
         
                   <div className="col-lg-12 cols">
-                    <Oficina accountAddress={this.props.accountAddress} />
+                    <Oficina />
                   </div>
         
                 </div>

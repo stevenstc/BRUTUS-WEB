@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 
 import Inicio from "../Inicio";
-import HomeBaner from "../HomeBaner";
-import Home from "../Home";
-import StakingBaner from "../StakingBaner";
-import Staking from "../Staking";
-import NftBaner from "../nftBaner";
-import Nft from "../nft";
+
+import Home from "../BRUT";
+import HomeBaner from "../BRUT/HomeBaner";
+import Staking from "../BRST";
+import StakingBaner from "../BRST/StakingBaner";
+import Nft from "../BRGY";
+import NftBaner from "../BRGY/nftBaner";
 import TronLinkGuide from "../TronLinkGuide";
 
 

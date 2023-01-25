@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import cons from "../../cons.js";
+import cons from "../../../cons.js";
 
 const contractAddress = cons.SC3;
 
@@ -9,8 +9,8 @@ export default class nftCrowdFunding extends Component {
 
     this.state = {
 
-      MC: "Cargando...",
-      MB: "Cargando..."
+      mc: "Cargando...",
+      mb: "Cargando..."
     };
 
     this.compra = this.compra.bind(this);
@@ -27,34 +27,34 @@ export default class nftCrowdFunding extends Component {
   }
 
   async misterio() {
-
     var contractNFT = await window.tronWeb.contract().at(cons.SC4);
-
     var contractMistery = await window.tronWeb.contract().at(cons.SC3);
 
     let mb = 0; 
     let mc = 0; 
 
     for (let index = 0; index < 25; index++) {
-      var conteo = await contractMistery.entregaNFT(this.props.accountAddress, index).call();
+      var conteo = await contractMistery.entregaNFT(this.props.accountAddress, index).call().catch(()=>{return 0;});
+
       if(conteo._hex){
         mc++;
         let nft = await contractMistery.entregaNFT(this.props.accountAddress, index).call();
         let ownerNft = await contractNFT.ownerOf(parseInt(nft._hex)).call();
         ownerNft = window.tronWeb.address.fromHex(ownerNft);
-        console.log(ownerNft)
-        console.log(this.props.accountAddress)
 
         if(ownerNft !== this.props.accountAddress){
           mb++;
         }
+
+      }else{
+        break;
       }
       
     }
 
     this.setState({
-      MC: mc,
-      MB: mb
+      mc: mc,
+      mb: mb
     })
 
   }
@@ -121,7 +121,7 @@ export default class nftCrowdFunding extends Component {
 
                 <br></br><br></br>
 
-                Mistery Box compradas: {this.state.MC}
+                Mistery Box compradas: {this.state.mc}
 
                 <br></br>
 
@@ -140,7 +140,7 @@ export default class nftCrowdFunding extends Component {
                     
                   }
                   
-                  }}>Abrir {this.state.MB} Mistery Box</button>
+                  }}>Abrir {this.state.mb} Mistery Box</button>
             </div>
 
           </div>

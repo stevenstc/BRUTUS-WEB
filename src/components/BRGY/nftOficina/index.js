@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Utils from "../../utils";
+import Utils from "../../../utils";
 
-import cons from "../../cons.js";
+import cons from "../../../cons.js";
 const contractAddress = cons.SC2;
 
 export default class nftOficina extends Component {
@@ -70,13 +70,13 @@ export default class nftOficina extends Component {
       estonuevo[index] = window.tronWeb.address.fromHex(await contractNFT.ownerOf(robots[index]).call()) === this.props.accountAddress
     }
 
-    console.log(estonuevo)
+    //console.log(estonuevo)
 
     for (let index = 0; index < robots.length; index++) {
 
       var URI = await contractNFT.tokenURI(robots[index]).call()
 
-      var metadata = JSON.parse( await (await fetch(URI)).text());
+      var metadata = JSON.parse( await (await fetch(cons.proxy+URI)).text());
       metadata.numero = robots[index]
 
       robots[index] = metadata;
