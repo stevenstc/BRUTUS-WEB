@@ -8,6 +8,8 @@ import Staking from "../BRST";
 import StakingBaner from "../BRST/StakingBaner";
 import Nft from "../BRGY";
 import NftBaner from "../BRGY/nftBaner";
+import LOTERIA from "../LOTERIA";
+import LOTERIABaner from "../LOTERIA/nftBaner";
 import TronLinkGuide from "../TronLinkGuide";
 
 
@@ -198,10 +200,9 @@ class App extends Component {
       case "loteria":
       case "rifa":
       case "sorteo":
-      case "trc115":
                 if (!this.state.tronWeb.installed) return (
                   <>
-                    <NftBaner/>
+                    <LOTERIABaner/>
                     <div className="container">
                       <TronLinkGuide url={"/?"+getString}/>
                     </div>
@@ -210,7 +211,7 @@ class App extends Component {
             
                 if (!this.state.tronWeb.loggedIn) return (
                   <>
-                    <NftBaner/>
+                    <LOTERIABaner/>
                     <div className="container">
                       <TronLinkGuide installed url={"/?"+getString}/>
                     </div>
@@ -219,8 +220,8 @@ class App extends Component {
             
                 return (
                   <>
-                    <NftBaner getString={getString}/>
-                    <Nft accountAddress={this.state.accountAddress} />
+                    <LOTERIABaner getString={getString}/>
+                    <LOTERIA accountAddress={this.state.accountAddress} />
                   </>
                 );
       
